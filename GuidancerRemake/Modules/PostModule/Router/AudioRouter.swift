@@ -13,9 +13,9 @@ class AudioRouter: AudioRouterProtocol {
         self.builder = builder
     }
     
-    func initialViewController() {
+    func initialViewController(post: PostElement?) {
         if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildAudio(router: self) else { return }
+            guard let mainViewController = builder?.buildAudio(post: post, router: self) else { return }
             navigationController.viewControllers = [mainViewController]
         }
     }

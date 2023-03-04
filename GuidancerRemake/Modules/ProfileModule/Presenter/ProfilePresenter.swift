@@ -3,8 +3,8 @@ import UIKit
 protocol ProfilePresenterProtocol: AnyObject {
     init(view: ProfileViewProtocol, network: NetworkManagerProtocol, router: ProfileRouterProtocol?)
     var viewModel: ProfileViewModel? { get set }
-    func tappedComment(post: PostElement?)
     func sayHi()
+    func setupWith(post: PostElement?)
 }
 
 class ProfilePresenter {
@@ -19,8 +19,8 @@ class ProfilePresenter {
         self.router = router
     }
     
-    func tappedComment(post: PostElement?) {
-        router?.initialPost(post: post)
+    func setupWith(post: PostElement?) {
+        router?.initialPostController(post: post)
     }
     
     func sayHi() {

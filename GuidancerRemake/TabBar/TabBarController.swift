@@ -25,11 +25,6 @@ final class TabBarViewController: UITabBarController {
                 image: UIImage(named: "user_cicrle_light")
             ),
             generateViewControllers(
-                viewController: UINavigationController(rootViewController: builder.buildAudio(router: postRouter)),
-                title: "Post",
-                image: UIImage(named: "user_cicrle_light")
-            ),
-            generateViewControllers(
                 viewController: UINavigationController(rootViewController: builder.buildSearch(router: searchRouter)),
                 title: "Search",
                 image: UIImage(named: "user_cicrle_light")

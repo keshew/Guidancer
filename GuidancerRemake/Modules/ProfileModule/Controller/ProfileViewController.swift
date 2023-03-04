@@ -119,11 +119,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = presenter?.viewModel?.postInforamtion?[indexPath.row]
+        presenter?.setupWith(post: post)
         let navControl = UINavigationController()
         let builder = ModuleBuilder()
-        let post = presenter?.viewModel?.postInforamtion![indexPath.row]
-        let router = PostRouter(navigationController: navControl, builder: builder)
-        let postController = builder.buildPost(post: post, router: router)
+        let router = AudioRouter(navigationController: navControl, builder: builder)
+        let postController = builder.buildAudio(post: post, router: router)
            if let sheet = postController.sheetPresentationController {
                sheet.detents = [.large()]
            }

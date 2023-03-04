@@ -3,7 +3,7 @@ import Kingfisher
 import MediaPlayer
 
 protocol AudioPresenterProtocol: AnyObject {
-    init(view: AudioViewProtocol, network: NetworkManagerProtocol, router: AudioRouterProtocol?)
+    init(view: AudioViewProtocol, post: PostElement?, network: NetworkManagerProtocol, router: AudioRouterProtocol?)
     var viewModel: AudioViewModel? { get set }
     func getInfoPost()
     func tappedPlay()
@@ -15,11 +15,13 @@ class AudioPresenter {
     var viewModel: AudioViewModel?
     var router: AudioRouterProtocol?
     var player: AVPlayer?
+    var post: PostElement?
 
-    required init(view: AudioViewProtocol, network: NetworkManagerProtocol, router: AudioRouterProtocol?) {
+    required init(view: AudioViewProtocol, post: PostElement?, network: NetworkManagerProtocol, router: AudioRouterProtocol?) {
         self.view = view
         self.network = network
         self.router = router
+        self.post = post
     }
     
     func tappedPlay() {
