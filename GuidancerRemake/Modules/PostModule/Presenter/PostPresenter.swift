@@ -2,7 +2,7 @@ import Foundation
 import MediaPlayer
 
 protocol PostPresenterProtocol: AnyObject {
-    init(view: PostViewProtocol, network: NetworkManagerProtocol, router: PostRouterProtocol?, player: AVPlayer?)
+    init(view: PostViewProtocol, post: PostElement?, network: NetworkManagerProtocol, router: PostRouterProtocol?, player: AVPlayer?)
     var viewModel: PostViewModelProtocol? { get set }
     func getInfoPost()
     func playTapped()
@@ -15,12 +15,14 @@ class PostPresenter {
     var viewModel: PostViewModelProtocol?
     var router: PostRouterProtocol?
     var player: AVPlayer?
+    var post: PostElement?
 
-    required init(view: PostViewProtocol, network: NetworkManagerProtocol, router: PostRouterProtocol?, player: AVPlayer?) {
+    required init(view: PostViewProtocol, post: PostElement?, network: NetworkManagerProtocol, router: PostRouterProtocol?, player: AVPlayer?) {
         self.view = view
         self.network = network
         self.router = router
         self.player = player
+        self.post = post
     }
     
     func playTapped() {
@@ -51,14 +53,14 @@ class PostPresenter {
             DispatchQueue.main.async {
                 guard let self else { return }
                 switch post {
-                case .success(let posts):
+                case .success(_):
 //                    self.viewModel?.postViewModel = posts
                     //put below realize in contriller 
-                    self.view?.openPost.setupView(image: posts.first?.imageUrl,
-                                                  nickname: posts.first?.author?.nickname ?? "NO NICKNAME",
-                                                  firstTitle: posts.first?.title ?? "NO TITLE",
-                                                  secondTitle: posts.first?.id ?? "NO SECOND TITLE",
-                                                  text: posts.first?.text ?? "NO TEXT")
+                    self.view?.openPost.setupView(image: self.post?.imageUrl,
+                                                  nickname: self.post?.author?.nickname ?? "NO NICKNAME",
+                                                  firstTitle: self.post?.title ?? "NO TITLE",
+                                                  secondTitle: self.post?.id ?? "NO SECOND TITLE",
+                                                  text: self.post?.text ?? "NO TEXT")
                 case .failure(let error):
                     print(error)
                 }

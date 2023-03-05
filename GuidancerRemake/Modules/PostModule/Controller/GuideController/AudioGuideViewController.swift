@@ -29,15 +29,41 @@ final class AudioGuideViewController: UIViewController {
         return view
     }()
     
+    private lazy var barButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"),
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(dismissVC))
+        item.tintColor = .gGreen
+        return item
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.getInfoPost()
         configureView()
         play()
+        openPost.playButton.addTarget(self, action: #selector(pushing), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = barButtonItem
     }
     
     @objc func playButtonTapped() {
         presenter?.tappedPlay()
+    }
+    
+    @objc func dismissVC() {
+        dismiss(animated: true)
+    }
+    
+    @objc func pushing() {
+        let navControl = UINavigationController()
+        let builder = ModuleBuilder()
+        let router = PostRouter(navigationController: navControl, builder: builder)
+        let post = builder.buildPost(post: presenter?.post, router: router)
+           if let sheet = post.sheetPresentationController {
+               sheet.detents = [.large()]
+           }
+        present(post, animated: true)
     }
 }
 
@@ -57,7 +83,7 @@ private extension AudioGuideViewController {
             openPost.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: UIConstants.openPostTopInset),
             openPost.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: openPost.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: openPost.bottomAnchor, constant: 20),
+            view.bottomAnchor.constraint(equalTo: openPost.bottomAnchor),
             
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),

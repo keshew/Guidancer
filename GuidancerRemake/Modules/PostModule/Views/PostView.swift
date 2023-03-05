@@ -112,14 +112,7 @@ class PostView: UIView {
   
     //to preseneter
     @objc func playTapped() {
-        let navControl = UINavigationController()
-        let builder = ModuleBuilder()
-        let router = PostRouter(navigationController: navControl, builder: builder)
-        let post = builder.buildPost(router: router)
-           if let sheet = post.sheetPresentationController {
-               sheet.detents = [.large()]
-           }
-        self.window?.rootViewController?.present(post, animated: true, completion: nil)
+    
     }
     
     //to presenter

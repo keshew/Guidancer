@@ -120,16 +120,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = presenter?.viewModel?.postInforamtion?[indexPath.row]
-        presenter?.setupWith(post: post)
-        let navControl = UINavigationController()
-        let builder = ModuleBuilder()
-        let router = AudioRouter(navigationController: navControl, builder: builder)
-        let postController = builder.buildAudio(post: post, router: router)
-           if let sheet = postController.sheetPresentationController {
-               sheet.detents = [.large()]
-           }
-        print(post?.title)
-        self.viewOfProfile.window?.rootViewController?.present(postController, animated: true, completion: nil)
+        guard let controller = presenter?.pushController(post: post) else { return }
+        let navVC = UINavigationController(rootViewController: controller)
+        navVC.modalPresentationStyle = .fullScreen
+        self.viewOfProfile.window?.rootViewController?.present(navVC, animated: true, completion: nil)
     }
 }
 

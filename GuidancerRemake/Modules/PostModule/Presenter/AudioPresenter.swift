@@ -7,6 +7,7 @@ protocol AudioPresenterProtocol: AnyObject {
     var viewModel: AudioViewModel? { get set }
     func getInfoPost()
     func tappedPlay()
+    var post: PostElement? { get set }
 }
 
 class AudioPresenter {
@@ -37,11 +38,11 @@ class AudioPresenter {
                 switch post {
                 case .success(let posts):
                     self.viewModel?.postModel = posts
-                    self.view?.openPost.setupView(image: posts.first?.author?.avatarURL,
-                                                  nickname: posts.first?.author?.nickname ?? "",
-                                                  firstTitle: posts.first?.title ?? "",
-                                                  text: posts.first?.text ?? "")
-                    self.view?.backgroundImage.kf.setImage(with: URL(string: posts.first?.imageUrl ?? ""))
+                    self.view?.openPost.setupView(image: self.post?.author?.avatarURL,
+                                                  nickname: self.post?.author?.nickname ?? "",
+                                                  firstTitle: self.post?.title ?? "",
+                                                  text: self.post?.text ?? "")
+                    self.view?.backgroundImage.kf.setImage(with: URL(string: self.post?.imageUrl ?? ""))
                 case .failure(let error):
                     print(error)
                 }

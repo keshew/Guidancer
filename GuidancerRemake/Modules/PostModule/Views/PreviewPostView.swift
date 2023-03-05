@@ -19,6 +19,7 @@ class PreviewPostView: UIView {
 
     private let titleLabel: GLabel = {
         let label = GLabel(font: .medium18)
+        
         return label
     }()
 
@@ -130,7 +131,7 @@ private extension PreviewPostView {
         addSubview(buttonStackView)
         addSubview(timeStackView)
         addSubview(lineView)
-
+        
         NSLayoutConstraint.activate([
             progressView.heightAnchor.constraint(equalToConstant: 10),
             lineView.heightAnchor.constraint(equalToConstant: 1),
@@ -154,7 +155,9 @@ private extension PreviewPostView {
             trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor, constant: 80),
             bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 25),
             
-            imageOfProfile.heightAnchor.constraint(equalToConstant: 370)
+            imageOfProfile.heightAnchor.constraint(equalToConstant: 370),
+//            titleLabel.heightAnchor.constraint(equalToConstant: 20)
+            //work on this
         ])
     }
 }

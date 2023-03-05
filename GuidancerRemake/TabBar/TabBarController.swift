@@ -11,7 +11,7 @@ final class TabBarViewController: UITabBarController {
         let navControl = UINavigationController()
         let builder = ModuleBuilder()
         let guestRouter = GuestRouter(navigationController: navControl, builder: builder)
-        let postRouter = AudioRouter(navigationController: navControl, builder: builder)
+//        let postRouter = AudioRouter(navigationController: navControl, builder: builder)
         let searchRouter = SearchRouter(navigationController: navControl, builder: builder)
         setViewControllers([
             generateViewControllers(

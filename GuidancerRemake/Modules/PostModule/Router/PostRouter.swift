@@ -13,9 +13,9 @@ class PostRouter: PostRouterProtocol {
         self.builder = builder
     }
     
-    func initialViewController() {
+    func initialViewController(post: PostElement?) {
         if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildPost(router: self) else { return }
+            guard let mainViewController = builder?.buildPost(post: post, router: self) else { return }
             navigationController.viewControllers = [mainViewController]
         }
     }

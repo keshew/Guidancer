@@ -4,7 +4,7 @@ protocol ProfilePresenterProtocol: AnyObject {
     init(view: ProfileViewProtocol, network: NetworkManagerProtocol, router: ProfileRouterProtocol?)
     var viewModel: ProfileViewModel? { get set }
     func sayHi()
-    func setupWith(post: PostElement?)
+    func pushController(post: PostElement?) -> UIViewController
 }
 
 class ProfilePresenter {
@@ -19,8 +19,8 @@ class ProfilePresenter {
         self.router = router
     }
     
-    func setupWith(post: PostElement?) {
-        router?.initialPostController(post: post)
+    func pushController(post: PostElement?) -> UIViewController {
+        return router?.initialPostController(post: post) ?? UIViewController()
     }
     
     func sayHi() {
