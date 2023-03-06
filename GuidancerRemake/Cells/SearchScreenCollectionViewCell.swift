@@ -44,8 +44,15 @@ class SearchScreenCollectionViewCell: PostCollectionViewCell {
 
         private func setup() {
             let stack = UIStackView(arrangedSubviews: [likesNumber, heartImage])
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.spacing = 3
             heartImage.tintColor = .black
-            stack.embed(in: self, with: .padding(top: 0, right: 10, bottom: 10, left: 330))
+            addSubview(stack)
+            NSLayoutConstraint.activate([
+                stack.topAnchor.constraint(equalTo: topAnchor),
+                trailingAnchor.constraint(equalTo: stack.trailingAnchor,constant: 20),
+                bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 5)
+            ])
         }
 
         func setupContent(likes: Int,

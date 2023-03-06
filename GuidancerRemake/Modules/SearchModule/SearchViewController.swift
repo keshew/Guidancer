@@ -53,7 +53,7 @@ private extension SearchViewController {
     }
     
     func setupLayout() {
-        layout.itemSize = CGSize(width: 380, height: 200)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 200)
         layout.scrollDirection = .vertical
     }
     

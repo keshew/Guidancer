@@ -17,7 +17,7 @@ class PostView: UIView {
         let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 25
-        image.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+//        image.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         return image
     }()
 
@@ -43,11 +43,14 @@ class PostView: UIView {
         let titleOfText = GLabel(font: .medium18)
         titleOfText.textColor = UIColor(named: "green")
         titleOfText.translatesAutoresizingMaskIntoConstraints = false
-     
         return titleOfText
     }()
     
-    private var mainText = GLabel(font: .regular15)
+    private let mainText: GLabel = {
+        let titleOfText = GLabel(font: .regular15)
+        titleOfText.translatesAutoresizingMaskIntoConstraints = false
+        return titleOfText
+    }()
     
     lazy var playButton: UIButton = {
         let btn = UIButton()
@@ -75,6 +78,7 @@ class PostView: UIView {
     
     private lazy var likesSV: UIStackView = {
         let view = UIStackView(arrangedSubviews: [followers, likeButton])
+//        view.setContentCompressionResistancePriority(.defaultHigh + 2, for: .horizontal)
         view.spacing = 5
         return view
     }()
@@ -89,7 +93,6 @@ class PostView: UIView {
     private lazy var mainStack: UIStackView = {
         let view = UIStackView(arrangedSubviews: [stackViewOfProfile, likesSV])
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.spacing = 70
         return view
     }()
     
@@ -97,7 +100,6 @@ class PostView: UIView {
         let view = UIStackView(arrangedSubviews: [titleOfText, mainText])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
-        view.spacing = 20
         return view
     }()
     
@@ -141,6 +143,7 @@ private extension PostView {
         NSLayoutConstraint.activate([
             imageOfProfile.heightAnchor.constraint(equalToConstant: 50),
             imageOfProfile.widthAnchor.constraint(equalToConstant: 50),
+            
             lineView.heightAnchor.constraint(equalToConstant: 1),
             lineView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3),
             
@@ -151,15 +154,18 @@ private extension PostView {
             mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: mainStack.trailingAnchor, constant: 25),
             
-            textStackView.topAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 20),
+            textStackView.topAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 15),
             textStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: textStackView.trailingAnchor, constant: 25),
             
             buttonSV.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIScreen.main.bounds.width / 2 - 27),
-            buttonSV.topAnchor.constraint(equalTo: textStackView.bottomAnchor, constant: 50),
-            bottomAnchor.constraint(equalTo: buttonSV.bottomAnchor, constant: 70),
+            buttonSV.topAnchor.constraint(equalTo: textStackView.bottomAnchor, constant: 5),
+            bottomAnchor.constraint(equalTo: buttonSV.bottomAnchor, constant: UIScreen.main.bounds.height / 20),
+            
             playButton.heightAnchor.constraint(equalToConstant: 54),
             playButton.widthAnchor.constraint(equalToConstant: 54),
+            
+            titleOfText.heightAnchor.constraint(equalToConstant: 30)
         ])
         
     }

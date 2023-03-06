@@ -125,11 +125,12 @@ class PreviewPostView: UIView {
 private extension PreviewPostView {
     func configureView() {
         backgroundColor = .white
-
+//        buttonStackView.backgroundColor = .red
         secondTitleLabel.textColor = UIColor(named: "DarkGray")
         addSubview(mainStackView)
         addSubview(buttonStackView)
         addSubview(timeStackView)
+        addSubview(imageOfProfile)
         addSubview(lineView)
         
         NSLayoutConstraint.activate([
@@ -140,7 +141,12 @@ private extension PreviewPostView {
             lineView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIScreen.main.bounds.width / 2 - UIScreen.main.bounds.width / 4),
 
-            mainStackView.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 25),
+            imageOfProfile.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 10),
+            imageOfProfile.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            trailingAnchor.constraint(equalTo: imageOfProfile.trailingAnchor, constant: 25),
+
+
+            mainStackView.topAnchor.constraint(equalTo: imageOfProfile.bottomAnchor, constant: 25),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: 25),
 
@@ -150,14 +156,10 @@ private extension PreviewPostView {
             trailingAnchor.constraint(equalTo: timeStackView.trailingAnchor, constant: 25),
 
             buttonStackView.heightAnchor.constraint(equalToConstant: 58),
-            buttonStackView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 20),
+            buttonStackView.topAnchor.constraint(equalTo: timeStackView.bottomAnchor, constant: 10),
             buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 80),
             trailingAnchor.constraint(equalTo: buttonStackView.trailingAnchor, constant: 80),
-            bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 25),
-            
-            imageOfProfile.heightAnchor.constraint(equalToConstant: 370),
-//            titleLabel.heightAnchor.constraint(equalToConstant: 20)
-            //work on this
+            bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 25)
         ])
     }
 }
