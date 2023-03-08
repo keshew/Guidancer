@@ -23,13 +23,16 @@ class PostPresenter {
         self.router = router
         self.player = player
         self.post = post
+        playTapped()
     }
     
     func playTapped() {
         if player?.timeControlStatus == .playing {
             player?.pause()
+            view?.openPost.pauseButton.setImage(UIImage(named: "play"), for: .normal)
         } else {
             player?.play()
+            view?.openPost.pauseButton.setImage(UIImage(named: "pause"), for: .normal)
         }
         
         view?.openPost.maxMinute.text = String(describing: Int(player?.currentItem?.asset.duration.seconds ?? 0)) + " seconds"

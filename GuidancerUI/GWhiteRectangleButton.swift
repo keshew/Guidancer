@@ -10,26 +10,27 @@ class GWhiteRectangleButton: GButton {
     
     init(title: String,
          frame: CGRect = .zero,
-         
+         backColor: UIColor = .white,
+         tintColor: UIColor = .black,
          didTap: ((UIButton) -> Void)? = nil
     ) {
+        self.tintColors = tintColor
         self.title = title
         super.init(frame: frame, didTap: didTap)
+        self.backgroundColor = backColor
     }
     
     let title: String
-    let color: UIColor = .white
+    let tintColors: UIColor
     
     override func configureUI() {
         super.configureUI()
-//        setSize(width: 328, height: 49)
-        backgroundColor = color
-        setTitleColor(UIColor.black, for: .normal)
-        titleLabel?.font = .medium18
+        setSize(height: 50)
+        titleLabel?.font = .regular15
         setTitle(title, for: .normal)
-        layer.cornerRadius = 16
-        layer.borderColor = UIColor.gBlack?.cgColor
-        layer.borderWidth = 1.0
+        layer.cornerRadius = 15
+        layer.borderWidth = 0.8
+        setTitleColor(tintColors, for: .normal)
         
     }
     

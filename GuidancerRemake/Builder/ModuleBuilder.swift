@@ -5,8 +5,11 @@ protocol Builder: AnyObject {
     func buildProfile(router: ProfileRouterProtocol) -> UIViewController
     func buildGuest(router: GuestRouterProtocol) -> UIViewController
     func buildAudio(post: PostElement?, router: AudioRouterProtocol) -> UIViewController
-    func buildPost(post: PostElement?, router: PostRouterProtocol) -> UIViewController
+    func buildPost(post: PostElement?, router: PostRouterProtocol, player: AVPlayer) -> UIViewController
     func buildSearch(router: SearchRouterProtocol) -> UIViewController
+    func buildLogin(router: LoginRouterProtocol) -> UIViewController
+    func buildCreatePost(router: CreatePostRouterProtocol) -> UIViewController
+    func buildMaps(router: MapsRouterProtocol) -> UIViewController
 }
 class ModuleBuilder: Builder { 
     func buildProfile(router: ProfileRouterProtocol) -> UIViewController {
@@ -33,10 +36,9 @@ class ModuleBuilder: Builder {
         return view
     }
     
-    func buildPost(post: PostElement?, router: PostRouterProtocol) -> UIViewController {
+    func buildPost(post: PostElement?, router: PostRouterProtocol, player: AVPlayer) -> UIViewController {
         let view = PostViewController()
         let network = NetworkManager()
-        let player = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "test", ofType: "mp3")!))
         let presenter = PostPresenter(view: view, post: post, network: network, router: router, player: player)
         view.presenter = presenter
         return view
@@ -46,6 +48,30 @@ class ModuleBuilder: Builder {
         let view = SearchViewController()
         let network = NetworkManager()
         let presenter = SearchPresenter(view: view, network: network, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func buildLogin(router: LoginRouterProtocol) -> UIViewController {
+        let view = LoginViewController()
+        let network = NetworkManager()
+        let presenter = LoginPresenter(view: view, network: network, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func buildCreatePost(router: CreatePostRouterProtocol) -> UIViewController {
+        let view = CreatePostViewController()
+        let network = NetworkManager()
+        let presenter = CreatePostPresenter(view: view, network: network, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func buildMaps(router: MapsRouterProtocol) -> UIViewController {
+        let view = MapsViewController()
+        let network = NetworkManager()
+        let presenter = MapsPresenter(view: view, network: network, router: router)
         view.presenter = presenter
         return view
     }

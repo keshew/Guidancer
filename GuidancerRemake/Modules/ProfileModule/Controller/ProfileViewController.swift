@@ -10,7 +10,7 @@ protocol MyProfileViewControllerDelegate: AnyObject {
 }
 
 class ProfileViewController: UIViewController, ProfileViewProtocol  {
-
+    
     var presenter: ProfilePresenterProtocol?
     
     fileprivate enum UIConstants {
@@ -24,13 +24,13 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
         static let followButtonLeadingInset: CGFloat = 170
         static let followButtonTopInset: CGFloat = 205
     }
-
+    
     let viewOfProfile: ProfileView = {
         let view = ProfileView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     private lazy var collectionView: UICollectionView = {
         let width = UIScreen.main.bounds.size.width - UIConstants.collectionViewLayoutOffset
         let layout = UICollectionViewFlowLayout()
@@ -48,19 +48,19 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     private lazy var scrollView: UIScrollView = {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
         return scroll
     }()
-
+    
     private let justView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     lazy var followButton: UIButton = {
         let bt = UIButton()
         bt.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
         bt.tintColor = .black
         return bt
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureFollowButton()
@@ -85,7 +85,7 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
         //make alert
         print("Error is", error)
     }
-
+    
     @objc func buttonFollowTapped() {
         //carry on presenter
         if followButton.tintColor == UIColor(named: "green") {
@@ -106,7 +106,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter?.viewModel?.postInforamtion?.count ?? 0
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = presenter?.viewModel?.postInforamtion?[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchScreenCollectionViewCell.identifier, for: indexPath) as! SearchScreenCollectionViewCell
@@ -135,46 +135,46 @@ private extension ProfileViewController {
         scrollView.addSubview(collectionView)
         scrollView.addSubview(viewOfProfile)
         viewOfProfile.addSubview(followButton)
-
+        
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: -UIConstants.scrollViewTopInset),
             view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-
+            
             scrollView.leadingAnchor.constraint(equalTo: justView.leadingAnchor),
             scrollView.topAnchor.constraint(equalTo: justView.topAnchor),
             justView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             justView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-
+            
             scrollView.widthAnchor.constraint(equalTo: collectionView.widthAnchor),
             scrollView.heightAnchor.constraint(equalTo: collectionView.heightAnchor),
-
+            
             scrollView.widthAnchor.constraint(equalTo: viewOfProfile.widthAnchor),
             viewOfProfile.heightAnchor.constraint(equalToConstant: UIConstants.viewOfProfileHeight),
-
-
+            
+            
             viewOfProfile.leadingAnchor.constraint(equalTo: justView.leadingAnchor),
             viewOfProfile.topAnchor.constraint(equalTo: justView.topAnchor),
             justView.trailingAnchor.constraint(equalTo: viewOfProfile.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: viewOfProfile.bottomAnchor),
-
+            
             collectionView.leadingAnchor.constraint(equalTo: justView.leadingAnchor),
             justView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
             justView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
-
+            
             followButton.leadingAnchor.constraint(equalTo: viewOfProfile.leadingAnchor, constant: -UIConstants.followButtonLeadingInset),
             followButton.topAnchor.constraint(equalTo: viewOfProfile.topAnchor,constant: UIConstants.followButtonTopInset),
             viewOfProfile.trailingAnchor.constraint(equalTo: followButton.trailingAnchor),
         ])
     }
-
+    
     func configureCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(SearchScreenCollectionViewCell.self, forCellWithReuseIdentifier: SearchScreenCollectionViewCell.identifier)
     }
-
+    
     func configureFollowButton() {
         followButton.isHidden = true
         followButton.addTarget(self, action: #selector(buttonFollowTapped), for: .touchUpInside)

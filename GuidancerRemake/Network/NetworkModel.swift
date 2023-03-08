@@ -12,13 +12,14 @@ struct PostElement: Codable {
     let location: [Int]?
     let author: Author?
     let imageUrl: String?
+    let audioUrl: String?
     let likedBy: [JSONAny]?
     let createdAt, updatedAt: String?
     let v: Int?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
-        case title, text, viewsCount, location, author, likedBy, createdAt, updatedAt, imageUrl
+        case title, text, viewsCount, location, author, likedBy, createdAt, updatedAt, imageUrl, audioUrl
         case v = "__v"
     }
 }

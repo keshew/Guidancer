@@ -51,6 +51,16 @@
 		8630105729AFDDFC00A0EAA1 /* PreviewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8630105629AFDDFC00A0EAA1 /* PreviewPostView.swift */; };
 		8630105929AFDFB500A0EAA1 /* AudioGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8630105829AFDFB500A0EAA1 /* AudioGuideViewController.swift */; };
 		8630105B29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8630105A29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift */; };
+		8642F8FA29B8ABFC003C4D9F /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F8F729B8ABFC003C4D9F /* LoginPresenter.swift */; };
+		8642F8FB29B8ABFC003C4D9F /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F8F829B8ABFC003C4D9F /* LoginRouter.swift */; };
+		8642F8FC29B8ABFC003C4D9F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F8F929B8ABFC003C4D9F /* LoginViewModel.swift */; };
+		8642F90529B8AD32003C4D9F /* CreatePostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F90229B8AD32003C4D9F /* CreatePostPresenter.swift */; };
+		8642F90629B8AD32003C4D9F /* CreatePostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F90329B8AD32003C4D9F /* CreatePostRouter.swift */; };
+		8642F90729B8AD32003C4D9F /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F90429B8AD32003C4D9F /* CreatePostViewModel.swift */; };
+		8642F91129B8AE82003C4D9F /* MapsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F90D29B8AE82003C4D9F /* MapsPresenter.swift */; };
+		8642F91229B8AE82003C4D9F /* MapsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F90E29B8AE82003C4D9F /* MapsRouter.swift */; };
+		8642F91329B8AE82003C4D9F /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F90F29B8AE82003C4D9F /* MapsViewController.swift */; };
+		8642F91429B8AE82003C4D9F /* MapsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F91029B8AE82003C4D9F /* MapsViewModel.swift */; };
 		8660C6E729B07C7D000514E9 /* PostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6E329B07C7D000514E9 /* PostPresenter.swift */; };
 		8660C6E829B07C7D000514E9 /* PostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6E429B07C7D000514E9 /* PostRouter.swift */; };
 		8660C6E929B07C7D000514E9 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6E529B07C7D000514E9 /* PostViewController.swift */; };
@@ -114,6 +124,16 @@
 		8630105629AFDDFC00A0EAA1 /* PreviewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPostView.swift; sourceTree = "<group>"; };
 		8630105829AFDFB500A0EAA1 /* AudioGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGuideViewController.swift; sourceTree = "<group>"; };
 		8630105A29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGuideMapViewController.swift; sourceTree = "<group>"; };
+		8642F8F729B8ABFC003C4D9F /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		8642F8F829B8ABFC003C4D9F /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		8642F8F929B8ABFC003C4D9F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		8642F90229B8AD32003C4D9F /* CreatePostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostPresenter.swift; sourceTree = "<group>"; };
+		8642F90329B8AD32003C4D9F /* CreatePostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostRouter.swift; sourceTree = "<group>"; };
+		8642F90429B8AD32003C4D9F /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
+		8642F90D29B8AE82003C4D9F /* MapsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsPresenter.swift; sourceTree = "<group>"; };
+		8642F90E29B8AE82003C4D9F /* MapsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsRouter.swift; sourceTree = "<group>"; };
+		8642F90F29B8AE82003C4D9F /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		8642F91029B8AE82003C4D9F /* MapsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewModel.swift; sourceTree = "<group>"; };
 		8660C6E329B07C7D000514E9 /* PostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPresenter.swift; sourceTree = "<group>"; };
 		8660C6E429B07C7D000514E9 /* PostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRouter.swift; sourceTree = "<group>"; };
 		8660C6E529B07C7D000514E9 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +204,8 @@
 		861EBA1029AF85FF0063988C /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				86EACAE029B2636700523B97 /* HaveAccountButton.swift */,
+				86EACADE29B2633D00523B97 /* GRectangleButton.swift */,
 				861EBA0229AF85290063988C /* GLikeCommentButton.swift */,
 				861EBA0429AF85430063988C /* GButton.swift */,
 			);
@@ -259,8 +281,9 @@
 				8630104729AFC82D00A0EAA1 /* PostModule */,
 				8630103A29AFBFDE00A0EAA1 /* GuestModule */,
 				862C9FA529AF763C00B71EAC /* ProfileModule */,
-				86888FEC29B23EBA00F2CC53 /* CreatePostViewController.swift */,
-				86EACADC29B262EB00523B97 /* LoginViewController.swift */,
+				8642F90829B8AD35003C4D9F /* CreatePostModule */,
+				8642F8FD29B8AC16003C4D9F /* LoginModule */,
+				8642F91529B8AE86003C4D9F /* MapModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -360,10 +383,8 @@
 			children = (
 				861EB9E429AF7D970063988C /* Labels */,
 				861EBA1029AF85FF0063988C /* Button */,
-				86EACADE29B2633D00523B97 /* GRectangleButton.swift */,
 				861EBA1929AF9C0E0063988C /* GPost.swift */,
 				86EACAD829B25E1400523B97 /* GTextFields.swift */,
-				86EACAE029B2636700523B97 /* HaveAccountButton.swift */,
 				86EACADA29B25E3500523B97 /* GWhiteRectangleButton.swift */,
 			);
 			path = GuidancerUI;
@@ -494,6 +515,135 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8642F8FD29B8AC16003C4D9F /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				8642F8FE29B8AD17003C4D9F /* Controller */,
+				8642F8FF29B8AD1C003C4D9F /* Presenter */,
+				8642F90029B8AD1F003C4D9F /* Router */,
+				8642F90129B8AD22003C4D9F /* ViewModel */,
+			);
+			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		8642F8FE29B8AD17003C4D9F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				86EACADC29B262EB00523B97 /* LoginViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8642F8FF29B8AD1C003C4D9F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8642F8F729B8ABFC003C4D9F /* LoginPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8642F90029B8AD1F003C4D9F /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				8642F8F829B8ABFC003C4D9F /* LoginRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		8642F90129B8AD22003C4D9F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8642F8F929B8ABFC003C4D9F /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8642F90829B8AD35003C4D9F /* CreatePostModule */ = {
+			isa = PBXGroup;
+			children = (
+				8642F90929B8AD9A003C4D9F /* Controller */,
+				8642F90A29B8AD9E003C4D9F /* Presenter */,
+				8642F90B29B8ADA3003C4D9F /* Router */,
+				8642F90C29B8ADA7003C4D9F /* ViewModel */,
+			);
+			path = CreatePostModule;
+			sourceTree = "<group>";
+		};
+		8642F90929B8AD9A003C4D9F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				86888FEC29B23EBA00F2CC53 /* CreatePostViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8642F90A29B8AD9E003C4D9F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8642F90229B8AD32003C4D9F /* CreatePostPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8642F90B29B8ADA3003C4D9F /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				8642F90329B8AD32003C4D9F /* CreatePostRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		8642F90C29B8ADA7003C4D9F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8642F90429B8AD32003C4D9F /* CreatePostViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8642F91529B8AE86003C4D9F /* MapModule */ = {
+			isa = PBXGroup;
+			children = (
+				8642F91629B8AE8D003C4D9F /* Presenter */,
+				8642F91729B8AE90003C4D9F /* Router */,
+				8642F91829B8AE94003C4D9F /* Controller */,
+				8642F91929B8AE97003C4D9F /* ViewModel */,
+			);
+			path = MapModule;
+			sourceTree = "<group>";
+		};
+		8642F91629B8AE8D003C4D9F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8642F90D29B8AE82003C4D9F /* MapsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8642F91729B8AE90003C4D9F /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				8642F90E29B8AE82003C4D9F /* MapsRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		8642F91829B8AE94003C4D9F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8642F90F29B8AE82003C4D9F /* MapsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8642F91929B8AE97003C4D9F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8642F91029B8AE82003C4D9F /* MapsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8660C6EB29B09939000514E9 /* SearchModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -594,14 +744,21 @@
 				861EBA1E29AF9C630063988C /* UIView++.swift in Sources */,
 				86EACADF29B2633D00523B97 /* GRectangleButton.swift in Sources */,
 				862C9FA229AF74E300B71EAC /* NetworkModel.swift in Sources */,
+				8642F8FC29B8ABFC003C4D9F /* LoginViewModel.swift in Sources */,
 				8630105929AFDFB500A0EAA1 /* AudioGuideViewController.swift in Sources */,
+				8642F91129B8AE82003C4D9F /* MapsPresenter.swift in Sources */,
+				8642F90629B8AD32003C4D9F /* CreatePostRouter.swift in Sources */,
 				86EACAD929B25E1400523B97 /* GTextFields.swift in Sources */,
+				8642F8FA29B8ABFC003C4D9F /* LoginPresenter.swift in Sources */,
 				862C9FC429AF7A7900B71EAC /* GLabel.swift in Sources */,
 				8630104029AFBFEE00A0EAA1 /* GuestRouter.swift in Sources */,
+				8642F91229B8AE82003C4D9F /* MapsRouter.swift in Sources */,
+				8642F91329B8AE82003C4D9F /* MapsViewController.swift in Sources */,
 				8630104D29AFD4B200A0EAA1 /* AudioRouter.swift in Sources */,
 				862C9F9F29AF74E300B71EAC /* NetworkManager.swift in Sources */,
 				86EACADD29B262EB00523B97 /* LoginViewController.swift in Sources */,
 				861EB9E229AF7CB50063988C /* UIFont++.swift in Sources */,
+				8642F90729B8AD32003C4D9F /* CreatePostViewModel.swift in Sources */,
 				86EACADB29B25E3500523B97 /* GWhiteRectangleButton.swift in Sources */,
 				8630105B29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift in Sources */,
 				862C9F8629AF723200B71EAC /* AppDelegate.swift in Sources */,
@@ -631,11 +788,14 @@
 				861EB9D929AF7C1F0063988C /* XCFonts+Generated.swift in Sources */,
 				862C9FC629AF7AA200B71EAC /* UIColor++.swift in Sources */,
 				861EBA1C29AF9C2D0063988C /* GCollectionViewCell.swift in Sources */,
+				8642F91429B8AE82003C4D9F /* MapsViewModel.swift in Sources */,
 				8660C6E729B07C7D000514E9 /* PostPresenter.swift in Sources */,
 				862C9FA129AF74E300B71EAC /* TabBarController.swift in Sources */,
 				862C9FBF29AF7A0F00B71EAC /* ProfileView.swift in Sources */,
 				861EBA0529AF85430063988C /* GButton.swift in Sources */,
 				862C9FA029AF74E300B71EAC /* ModuleBuilder.swift in Sources */,
+				8642F8FB29B8ABFC003C4D9F /* LoginRouter.swift in Sources */,
+				8642F90529B8AD32003C4D9F /* CreatePostPresenter.swift in Sources */,
 				861EB9E829AF7E710063988C /* ContainerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

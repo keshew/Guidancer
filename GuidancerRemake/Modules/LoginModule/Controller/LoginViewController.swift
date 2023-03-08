@@ -7,8 +7,13 @@
 
 import UIKit
 
-final class LoginViewController: UIViewController {
+protocol LoginViewProtocol: AnyObject {
     
+}
+
+final class LoginViewController: UIViewController, LoginViewProtocol {
+    
+    var presenter: LoginPresenterProtocol?
     
     private let emailTextField = GTextField(imageName: "user",
                                             placeholder: "Email",
@@ -25,7 +30,7 @@ final class LoginViewController: UIViewController {
                                                 image: UIImage(systemName: "applelogo"))
     private let dontHaveAccountButton = HaveAccountButton(firstPart: "Don't have an account ? ",
                                                            secondPart: "Sign up here")
-    lazy var stack = UIStackView(arrangedSubviews: [emailTextField,
+    private lazy var stack = UIStackView(arrangedSubviews: [emailTextField,
                                                     passwordTextField,
                                                     signInButton,
                                                     choiceLabel,
@@ -34,13 +39,45 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configSignInButton()
     }
-    private func configureUI() {
+    
+    @objc func presentLogin() {
+        //вход в акк to presenter
+        guard let url = URL(string: "http://31.31.203.226:4444/auth/login") else { return }
+        let parameters = ["email": emailTextField.textField.text, "password": passwordTextField.textField.text]
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { data, respinse, error in
+            if let respinse = respinse {
+                print(respinse)
+            }
+            guard let data else { return }
+            do {
+                let jspn = try JSONSerialization.jsonObject(with: data, options: [])
+                print(jspn)
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+
+}
+
+private extension LoginViewController {
+    
+    func configureUI() {
         view.backgroundColor = .white
         configLabel()
         configStackView()
         configDontHaveAccountButton()
     }
+    
     func configLabel() {
         view.addSubview(titleLabel)
         titleLabel.addAnchors(top: view.safeAreaLayoutGuide.topAnchor,
@@ -54,6 +91,7 @@ final class LoginViewController: UIViewController {
         choiceLabel.font = .medium21
         choiceLabel.textAlignment = .center
     }
+    
     func configStackView() {
         view.addSubview(stack)
         passwordTextField.textField.isSecureTextEntry = true
@@ -64,6 +102,7 @@ final class LoginViewController: UIViewController {
         stack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50).isActive = true
     }
+    
     func configDontHaveAccountButton() {
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.addAnchors(left: view.leftAnchor,
@@ -71,5 +110,9 @@ final class LoginViewController: UIViewController {
                                          right: view.rightAnchor,
                                          paddingLeft: 40,
                                          paddinRight: 40)
+    }
+    
+    func configSignInButton() {
+        signInButton.addTarget(self, action: #selector(presentLogin), for: .touchUpInside)
     }
 }

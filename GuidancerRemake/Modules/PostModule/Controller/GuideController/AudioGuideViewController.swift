@@ -42,24 +42,20 @@ final class AudioGuideViewController: UIViewController {
         super.viewDidLoad()
         presenter?.getInfoPost()
         configureView()
-        play()
         openPost.playButton.addTarget(self, action: #selector(pushing), for: .touchUpInside)
         navigationItem.leftBarButtonItem = barButtonItem
     }
-    
-    @objc func playButtonTapped() {
-        presenter?.tappedPlay()
-    }
-    
     @objc func dismissVC() {
         dismiss(animated: true)
     }
     
     @objc func pushing() {
+        presenter?.tappedPlay()
+        guard let player = presenter?.player else { return }
         let navControl = UINavigationController()
         let builder = ModuleBuilder()
         let router = PostRouter(navigationController: navControl, builder: builder)
-        let post = builder.buildPost(post: presenter?.post, router: router)
+        let post = builder.buildPost(post: presenter?.post, router: router, player: player)
            if let sheet = post.sheetPresentationController {
                sheet.detents = [.large()]
            }
@@ -68,10 +64,6 @@ final class AudioGuideViewController: UIViewController {
 }
 
 private extension AudioGuideViewController {
-    
-    func play() {
-        openPost.playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
-    }
     
     func configureView() {
         openPost.layer.zPosition = 1

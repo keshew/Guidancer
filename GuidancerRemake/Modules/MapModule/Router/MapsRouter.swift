@@ -1,10 +1,9 @@
 import UIKit
-import AVKit
 
-protocol PostRouterProtocol: AnyObject {
+protocol MapsRouterProtocol: AnyObject {
 }
 
-class PostRouter: PostRouterProtocol {
+class MapsRouter: MapsRouterProtocol {
     
     var navigationController: UINavigationController?
     var builder: Builder?
@@ -14,9 +13,9 @@ class PostRouter: PostRouterProtocol {
         self.builder = builder
     }
     
-    func initialViewController(post: PostElement?, player: AVPlayer) {
+    func initialViewController() {
         if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildPost(post: post, router: self, player: player) else { return }
+            guard let mainViewController = builder?.buildMaps(router: self) else { return }
             navigationController.viewControllers = [mainViewController]
         }
     }

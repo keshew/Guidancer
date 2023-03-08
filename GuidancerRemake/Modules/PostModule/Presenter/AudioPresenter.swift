@@ -5,6 +5,7 @@ import MediaPlayer
 protocol AudioPresenterProtocol: AnyObject {
     init(view: AudioViewProtocol, post: PostElement?, network: NetworkManagerProtocol, router: AudioRouterProtocol?)
     var viewModel: AudioViewModel? { get set }
+    var player: AVPlayer? { get set }
     func getInfoPost()
     func tappedPlay()
     var post: PostElement? { get set }
@@ -26,8 +27,9 @@ class AudioPresenter {
     }
     
     func tappedPlay() {
-        player = AVPlayer(url: URL(fileURLWithPath: Bundle.main.path(forResource: "test", ofType: "mp3")!))
-//        print("player?.play()")
+        guard let song = post?.audioUrl else { return }
+        player = AVPlayer(url: URL(string: song)!)
+        player?.play()
     }
     
     func getInfoPost() {

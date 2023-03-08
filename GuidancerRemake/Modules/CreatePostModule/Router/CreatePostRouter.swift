@@ -1,10 +1,9 @@
 import UIKit
-import AVKit
 
-protocol PostRouterProtocol: AnyObject {
+protocol CreatePostRouterProtocol: AnyObject {
 }
 
-class PostRouter: PostRouterProtocol {
+class CreatePostRouter: CreatePostRouterProtocol {
     
     var navigationController: UINavigationController?
     var builder: Builder?
@@ -14,9 +13,9 @@ class PostRouter: PostRouterProtocol {
         self.builder = builder
     }
     
-    func initialViewController(post: PostElement?, player: AVPlayer) {
+    func initialViewController() {
         if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildPost(post: post, router: self, player: player) else { return }
+            guard let mainViewController = builder?.buildCreatePost(router: self) else { return }
             navigationController.viewControllers = [mainViewController]
         }
     }
