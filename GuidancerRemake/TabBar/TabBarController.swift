@@ -10,28 +10,37 @@ final class TabBarViewController: UITabBarController {
     private func generateTabBar() {
         let navControl = UINavigationController()
         let builder = ModuleBuilder()
-        let guestRouter = GuestRouter(navigationController: navControl, builder: builder)
+        let createPostRouter = CreatePostRouter(navigationController: navControl, builder: builder)
         let searchRouter = SearchRouter(navigationController: navControl, builder: builder)
+        let mapsRouter = MapsRouter(navigationController: navControl, builder: builder)
+        let loginRouter = LoginRouter(navigationController: navControl, builder: builder)
+        let notifRouter = NotificationRouter(navigationController: navControl, builder: builder)
         setViewControllers([
             generateViewControllers(
-                viewController: UINavigationController(rootViewController: ContainerViewController()),
-                title: "Profile",
-                image: UIImage(named: "user_cicrle_light")
-            ),
-            generateViewControllers(
-                viewController: UINavigationController(rootViewController: builder.buildGuest(router: guestRouter)),
-                title: "Guest",
-                image: UIImage(named: "user_cicrle_light")
+                viewController: UINavigationController(rootViewController: builder.buildMaps(router: mapsRouter)),
+                image: UIImage(systemName: "map.circle.fill")
+
             ),
             generateViewControllers(
                 viewController: UINavigationController(rootViewController: builder.buildSearch(router: searchRouter)),
-                title: "Search",
-                image: UIImage(named: "user_cicrle_light")
+                image: UIImage(systemName: "magnifyingglass")
+            ),
+            generateViewControllers(
+                viewController: UINavigationController(rootViewController: builder.buildCreatePost(router: createPostRouter)),
+                image: UIImage(named: "PostModule")
+            ),
+            generateViewControllers(
+                viewController: UINavigationController(rootViewController: builder.buildNotif(router: notifRouter)),
+                image: UIImage(named: "FavoriteModule")
+            ),
+            generateViewControllers(
+                viewController: UINavigationController(rootViewController: builder.buildLogin(router: loginRouter)),
+                image: UIImage(named: "ProfileModule")
             )],animated: true)
+            
     }
     
-    private func generateViewControllers(viewController: UINavigationController, title: String, image: UIImage?) -> UIViewController {
-        viewController.tabBarItem.title = title
+    private func generateViewControllers(viewController: UINavigationController, image: UIImage?) -> UIViewController {
         viewController.tabBarItem.image = image
         return viewController
     }

@@ -1,10 +1,9 @@
 import UIKit
 
-protocol LoginRouterProtocol: AnyObject {
-    func presentProfile() -> UIViewController
+protocol NotificationRouterProtocol: AnyObject {
 }
 
-class LoginRouter: LoginRouterProtocol {
+class NotificationRouter: NotificationRouterProtocol {
     
     var navigationController: UINavigationController?
     var builder: Builder?
@@ -16,17 +15,9 @@ class LoginRouter: LoginRouterProtocol {
     
     func initialViewController() {
         if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildLogin(router: self) else { return }
+            guard let mainViewController = builder?.buildNotif(router: self) else { return }
             navigationController.viewControllers = [mainViewController]
         }
-    }
-    
-    func presentProfile() -> UIViewController {
-        guard let navigationController else { return UIViewController() }
-        let router = ProfileRouter(navigationController: navigationController, builder: builder!)
-        let mainViewController = builder!.buildProfile(router: router)
-        mainViewController.modalPresentationStyle = .fullScreen
-        return mainViewController
     }
     
     func popToRoot() {

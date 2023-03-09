@@ -10,6 +10,7 @@ protocol Builder: AnyObject {
     func buildLogin(router: LoginRouterProtocol) -> UIViewController
     func buildCreatePost(router: CreatePostRouterProtocol) -> UIViewController
     func buildMaps(router: MapsRouterProtocol) -> UIViewController
+    func buildNotif(router: NotificationRouterProtocol) -> UIViewController
 }
 class ModuleBuilder: Builder { 
     func buildProfile(router: ProfileRouterProtocol) -> UIViewController {
@@ -72,6 +73,14 @@ class ModuleBuilder: Builder {
         let view = MapsViewController()
         let network = NetworkManager()
         let presenter = MapsPresenter(view: view, network: network, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func buildNotif(router: NotificationRouterProtocol) -> UIViewController {
+        let view = NotificationViewController()
+        let network = NetworkManager()
+        let presenter = NotificationPresenter(view: view, network: network, router: router)
         view.presenter = presenter
         return view
     }

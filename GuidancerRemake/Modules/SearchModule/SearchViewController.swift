@@ -17,6 +17,10 @@ final class SearchViewController: UIViewController {
         setupLayout()
         setupCollectionViews()
         setupSearch()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         presenter?.getInfoPost()
     }
     

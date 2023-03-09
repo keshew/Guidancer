@@ -8,17 +8,20 @@
 import UIKit
 
 protocol LoginViewProtocol: AnyObject {
-    
+    var emailTextField: GTextField { get set }
+    var passwordTextField: GTextField { get set }
+    func pushProfileController()
+    func showAlert()
 }
 
 final class LoginViewController: UIViewController, LoginViewProtocol {
     
     var presenter: LoginPresenterProtocol?
     
-    private let emailTextField = GTextField(imageName: "user",
+    var emailTextField = GTextField(imageName: "user",
                                             placeholder: "Email",
                                             font: .medium18)
-    private let passwordTextField = GTextField(imageName: "lock",
+    var passwordTextField = GTextField(imageName: "lock",
                                                placeholder: "Password",
                                                font: .medium18)
     private let titleLabel = GLabel(text: "Start exploring the world around!", font: .bold27)
@@ -36,6 +39,7 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
                                                     choiceLabel,
                                                     googleButton,
                                                     appleButton])
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -43,28 +47,21 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
     }
     
     @objc func presentLogin() {
-        //вход в акк to presenter
-        guard let url = URL(string: "http://31.31.203.226:4444/auth/login") else { return }
-        let parameters = ["email": emailTextField.textField.text, "password": passwordTextField.textField.text]
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-        request.httpBody = httpBody
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { data, respinse, error in
-            if let respinse = respinse {
-                print(respinse)
-            }
-            guard let data else { return }
-            do {
-                let jspn = try JSONSerialization.jsonObject(with: data, options: [])
-                print(jspn)
-            } catch {
-                print(error)
-            }
-        }.resume()
+        presenter?.enterInAcc()
+        tabBarController?.hidesBottomBarWhenPushed = true
+    }
+    
+    func pushProfileController() {
+        let nav = UINavigationController(rootViewController: (presenter?.presentProfile())!)
+        nav.modalPresentationStyle = .currentContext
+        present(nav, animated: true)
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Error", message: "Incorrect email or password", preferredStyle: .alert)
+        let alertOK = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(alertOK)
+        present(alert, animated: true)
     }
 
 }
@@ -114,5 +111,25 @@ private extension LoginViewController {
     
     func configSignInButton() {
         signInButton.addTarget(self, action: #selector(presentLogin), for: .touchUpInside)
+    }
+}
+
+enum HTTPStatusCodeGroup: Int {
+    case Info = 100
+    case Success = 200
+    case Redirect = 300
+    case Client = 400
+    case Server = 500
+    case Unknown = 999
+
+    init(code: Int) {
+        switch code {
+            case 100...199: self = .Info
+            case 200...299: self = .Success
+            case 300...399: self = .Redirect
+            case 400...499: self = .Client
+            case 500...599: self = .Server
+            default: self = .Unknown
+        }
     }
 }

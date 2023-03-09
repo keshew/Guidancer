@@ -74,6 +74,10 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
         configureFollowButton()
         configureView()
         configureCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         presenter?.sayHi()
     }
     
@@ -123,7 +127,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let controller = presenter?.pushController(post: post) else { return }
         let navVC = UINavigationController(rootViewController: controller)
         navVC.modalPresentationStyle = .fullScreen
-        self.viewOfProfile.window?.rootViewController?.present(navVC, animated: true, completion: nil)
+        present(navVC, animated: true)
     }
 }
 

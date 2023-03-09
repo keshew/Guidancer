@@ -25,7 +25,7 @@ class GWhiteRectangleButton: GButton {
     
     override func configureUI() {
         super.configureUI()
-        setSize(height: 50)
+        setSize(height: 44)
         titleLabel?.font = .regular15
         setTitle(title, for: .normal)
         layer.cornerRadius = 15

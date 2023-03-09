@@ -1,6 +1,9 @@
 import UIKit
 
 protocol CreatePostViewProtocol: AnyObject {
+    var guideNameTextField: UITextField { get set }
+    var guideDescriptionTextField: UITextView { get set }
+    func showAlert()
 }
 
 final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
@@ -14,7 +17,7 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         return label
     }()
     
-    private let guideNameTextField: UITextField = {
+    var guideNameTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Add location name..."
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -26,14 +29,11 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         return tf
     }()
     
-    private let guideDescriptionTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Add location description..."
+    var guideDescriptionTextField: UITextView = {
+        let tf = UITextView()
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.layer.cornerRadius = 15
-        tf.contentVerticalAlignment = .top
         tf.layer.borderWidth = 0.8
-        tf.layer.sublayerTransform = CATransform3DMakeTranslation(10, 10, 0)
         return tf
     }()
     
@@ -53,13 +53,13 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
     
     private lazy var postButton: GWhiteRectangleButton = {
         let btn = GWhiteRectangleButton(title: "Post", backColor: .black, tintColor: .white)
-        btn.addTarget(self, action: #selector(presentLogin), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(createPost), for: .touchUpInside)
         return btn
     }()
     
     private lazy var mainSV: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [guideDescriptionTextField, addPhoto, addVoice, selectLocation])
-        sv.spacing = 15
+        let sv = UIStackView(arrangedSubviews: [addPhoto, addVoice, selectLocation])
+        sv.spacing = 10
         sv.axis = .vertical
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
@@ -67,7 +67,15 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
     
     private lazy var miniSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [addMore, postButton])
-        sv.spacing = 15
+        sv.spacing = 10
+        sv.axis = .vertical
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        return sv
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [mainSV, miniSV])
+        sv.spacing = 30
         sv.axis = .vertical
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
@@ -76,12 +84,17 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
     }
     
-    @objc func presentLogin() {
-        let controller = LoginViewController()
-        present(controller, animated: true)
+    func showAlert() {
+        let alert = UIAlertController(title: "Success", message: "Post is ready to be read", preferredStyle: .alert)
+        let alertOK = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(alertOK)
+        present(alert, animated: true)
+    }
+    
+    @objc func createPost() {
+        presenter?.createPost()
     }
 }
 
@@ -90,39 +103,34 @@ private extension CreatePostViewController {
         view.addSubview(titleLabel)
         view.addSubview(profileImage)
         view.addSubview(guideNameTextField)
-        view.addSubview(mainSV)
-        view.addSubview(miniSV)
+        view.addSubview(stackView)
+        view.addSubview(guideDescriptionTextField)
         view.backgroundColor = .white
         let margin = view.layoutMarginsGuide
         NSLayoutConstraint.activate([
-            profileImage.heightAnchor.constraint(equalToConstant: 70),
-            profileImage.widthAnchor.constraint(equalToConstant: 70),
-            
             titleLabel.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
-            titleLabel.topAnchor.constraint(equalTo: margin.topAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: margin.topAnchor),
             
-            guideNameTextField.heightAnchor.constraint(equalToConstant: 50),
             guideNameTextField.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
-            guideNameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            guideNameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             
             profileImage.leadingAnchor.constraint(equalTo: guideNameTextField.trailingAnchor, constant: 25),
             margin.trailingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 10),
-            profileImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            profileImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
             
-            guideDescriptionTextField.heightAnchor.constraint(equalToConstant: 170),
-            mainSV.topAnchor.constraint(equalTo: guideNameTextField.bottomAnchor, constant: 20),
-            mainSV.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
-            margin.trailingAnchor.constraint(equalTo: mainSV.trailingAnchor, constant: 10),
+            guideDescriptionTextField.topAnchor.constraint(equalTo: guideNameTextField.bottomAnchor, constant: 15),
+            guideDescriptionTextField.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
+            margin.trailingAnchor.constraint(equalTo: guideDescriptionTextField.trailingAnchor, constant: 10),
             
-            margin.bottomAnchor.constraint(equalTo: miniSV.bottomAnchor, constant: 20),
-            miniSV.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
-            margin.trailingAnchor.constraint(equalTo: miniSV.trailingAnchor, constant: 10),
-
-            addPhoto.heightAnchor.constraint(equalToConstant: 50),
-            addVoice.heightAnchor.constraint(equalToConstant: 50),
-            addMore.heightAnchor.constraint(equalToConstant: 50),
-            postButton.heightAnchor.constraint(equalToConstant: 50),
-            selectLocation.heightAnchor.constraint(equalToConstant: 50),
+            stackView.topAnchor.constraint(equalTo: guideDescriptionTextField.bottomAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
+            margin.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10),
+            margin.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
+            
+            guideNameTextField.heightAnchor.constraint(equalToConstant: 50),
+//            guideDescriptionTextField.heightAnchor.constraint(equalToConstant: 184),
+            profileImage.heightAnchor.constraint(equalToConstant: 60),
+            profileImage.widthAnchor.constraint(equalToConstant: 60),
         ])
     }
 }

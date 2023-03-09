@@ -25,8 +25,10 @@ class MapsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupBarButtonItem()
+        view.backgroundColor = .white
+        navigationItem.title = "ITS MAP CONTROLLER"
+//        setupView()
+//        setupBarButtonItem()
     }
 }
 
