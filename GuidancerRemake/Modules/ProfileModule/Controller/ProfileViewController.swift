@@ -124,6 +124,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = presenter?.viewModel?.postInforamtion?[indexPath.row]
+        //upgrade
         guard let controller = presenter?.pushController(post: post) else { return }
         let navVC = UINavigationController(rootViewController: controller)
         navVC.modalPresentationStyle = .fullScreen

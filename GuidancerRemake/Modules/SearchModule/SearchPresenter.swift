@@ -1,9 +1,10 @@
-import Foundation
+import UIKit
 
 protocol SearchPresenterProtocol: AnyObject {
     init(view: SearchViewProtocol, network: NetworkManagerProtocol, router: SearchRouterProtocol?)
     var viewModel: SearchViewModelProtocol? { get set }
     func getInfoPost()
+    func pushController(post: PostElement?) -> UIViewController 
 }
 
 class SearchPresenter {
@@ -16,6 +17,10 @@ class SearchPresenter {
         self.view = view
         self.network = network
         self.router = router
+    }
+    
+    func pushController(post: PostElement?) -> UIViewController {
+        return router?.initialPostController(post: post) ?? UIViewController()
     }
     
     func getInfoPost() {

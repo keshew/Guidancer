@@ -26,9 +26,8 @@ class GRectangleButton: GButton {
     
     override func configureUI() {
         super.configureUI()
-        setSize(width: 302, height: 52)
         backgroundColor = color
-        titleLabel?.font = .bold20
+        titleLabel?.font = .medium21
         setTitle(title, for: .normal)
         layer.cornerRadius = 16
         if image != nil {
@@ -37,7 +36,7 @@ class GRectangleButton: GButton {
             var configuration = UIButton.Configuration.filled()
             configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
                 var outgoing = incoming
-                outgoing.font = UIFont.bold20
+                outgoing.font = UIFont.medium21
                 return outgoing
                }
             configuration.imagePadding = 10

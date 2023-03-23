@@ -20,12 +20,22 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
     
     var emailTextField = GTextField(imageName: "user",
                                             placeholder: "Email",
-                                            font: .medium18)
-    var passwordTextField = GTextField(imageName: "lock",
-                                               placeholder: "Password",
-                                               font: .medium18)
+                                            font: .medium21)
+    
     private let titleLabel = GLabel(text: "Start exploring the world around!", font: .bold27)
-    private let choiceLabel = UILabel()
+    
+    private let choiceLabel: GLabel = {
+        let label = GLabel(text: "or", font: .medium21)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    var passwordTextField: GTextField = {
+        let label = GTextField(imageName: "lock", placeholder: "Password", font: .medium21)
+        label.textField.isSecureTextEntry = true
+        return label
+    }()
+    
     private let signInButton = GRectangleButton(title: "Sign In")
     private let appleButton = GRectangleButton(title: "Continue with Apple",
                                                image: UIImage(systemName: "applelogo"))
@@ -34,16 +44,20 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
     private let dontHaveAccountButton = HaveAccountButton(firstPart: "Don't have an account ? ",
                                                            secondPart: "Sign up here")
     private lazy var stack = UIStackView(arrangedSubviews: [emailTextField,
-                                                    passwordTextField,
-                                                    signInButton,
+                                                    passwordTextField])
+    
+    private lazy var stack2 = UIStackView(arrangedSubviews: [signInButton,
                                                     choiceLabel,
                                                     googleButton,
                                                     appleButton])
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        setupView()
         configSignInButton()
+        let text = UITextField()
+        text.isSecureTextEntry = true
+
     }
     
     @objc func presentLogin() {
@@ -68,45 +82,49 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
 
 private extension LoginViewController {
     
-    func configureUI() {
+    func setupView() {
         view.backgroundColor = .white
-        configLabel()
-        configStackView()
-        configDontHaveAccountButton()
-    }
-    
-    func configLabel() {
         view.addSubview(titleLabel)
-        titleLabel.addAnchors(top: view.safeAreaLayoutGuide.topAnchor,
-                              left: view.leftAnchor,
-                              right: view.rightAnchor,
-                              paddingTop: 20,
-                              paddingLeft: 44,
-                              paddinRight: 20)
-        titleLabel.textAlignment = .left
-        choiceLabel.text = "or"
-        choiceLabel.font = .medium21
-        choiceLabel.textAlignment = .center
-    }
-    
-    func configStackView() {
         view.addSubview(stack)
-        passwordTextField.textField.isSecureTextEntry = true
-        stack.axis = .vertical
-        stack.distribution = .fillEqually
-        stack.spacing = 16
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50).isActive = true
-    }
-    
-    func configDontHaveAccountButton() {
+        view.addSubview(stack2)
         view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.addAnchors(left: view.leftAnchor,
-                                         bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                                         right: view.rightAnchor,
-                                         paddingLeft: 40,
-                                         paddinRight: 40)
+        
+        dontHaveAccountButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        stack.axis = .vertical
+        stack.distribution = .fillProportionally
+        stack.spacing = 15
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        stack2.axis = .vertical
+        stack2.distribution = .fillProportionally
+        stack2.spacing = 15
+        stack2.translatesAutoresizingMaskIntoConstraints = false
+        
+        let margin = view.layoutMarginsGuide
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: margin.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
+            margin.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            
+            stack.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIScreen.main.bounds.height / 15),
+            stack.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
+            margin.trailingAnchor.constraint(equalTo: stack.trailingAnchor),
+            
+            stack2.topAnchor.constraint(equalTo: stack.bottomAnchor, constant: UIScreen.main.bounds.height / 15),
+            stack2.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
+            margin.trailingAnchor.constraint(equalTo: stack2.trailingAnchor),
+            
+
+            dontHaveAccountButton.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
+            margin.trailingAnchor.constraint(equalTo: dontHaveAccountButton.trailingAnchor),
+            margin.bottomAnchor.constraint(equalTo: dontHaveAccountButton.bottomAnchor, constant: 10),
+            
+            stack.heightAnchor.constraint(equalToConstant: 120),
+            googleButton.heightAnchor.constraint(equalToConstant: 50),
+            appleButton.heightAnchor.constraint(equalToConstant: 50),
+            titleLabel.heightAnchor.constraint(equalToConstant: 72)
+        ])
     }
     
     func configSignInButton() {

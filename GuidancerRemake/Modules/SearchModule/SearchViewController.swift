@@ -12,6 +12,24 @@ final class SearchViewController: UIViewController {
     let searchController = UISearchController()
     let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
+    private lazy var popularButton: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("Popular", for: .normal)
+        btn.titleLabel?.font = .medium21
+        btn.setTitleColor(.black, for: .normal)
+        return btn
+    }()
+    
+    private lazy var followedButton: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("Followed", for: .normal)
+        btn.titleLabel?.font = .medium18
+        btn.setTitleColor(.gray, for: .normal)
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -49,7 +67,17 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let post = presenter?.viewModel?.searchViewModel?[indexPath.row]
+        //upgrade
+        guard let controller = presenter?.pushController(post: post) else { return }
+        let navVC = UINavigationController(rootViewController: controller)
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
+    }
 }
+
 
 private extension SearchViewController {
     func setupSearch() {
@@ -67,6 +95,10 @@ private extension SearchViewController {
             frame: CGRect(),
             collectionViewLayout: layout)
         view.addSubview(collectionView)
+        view.addSubview(followedButton)
+        view.addSubview(popularButton)
+        
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -74,11 +106,16 @@ private extension SearchViewController {
                                  forCellWithReuseIdentifier: SearchScreenCollectionViewCell.identifier)
         collectionView.showsVerticalScrollIndicator = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            popularButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 7),
+            popularButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            followedButton.leadingAnchor.constraint(equalTo: popularButton.trailingAnchor, constant: 20),
+            followedButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+
+            collectionView.topAnchor.constraint(equalTo: popularButton.bottomAnchor,constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
-
         ])
     }
 }

@@ -3,6 +3,7 @@ import UIKit
 protocol CreatePostViewProtocol: AnyObject {
     var guideNameTextField: UITextField { get set }
     var guideDescriptionTextField: UITextView { get set }
+    var profileImage: UIImageView { get set }
     func showAlert()
 }
 
@@ -16,6 +17,14 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+//    private lazy var imagePicker: UIImagePickerController = {
+//        let image = UIImagePickerController()
+//        image.sourceType = .photoLibrary
+//        image.delegate = self
+//        image.allowsEditing = true
+//        return image
+//    }()
     
     var guideNameTextField: UITextField = {
         let tf = UITextField()
@@ -37,22 +46,34 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         return tf
     }()
     
-    private let profileImage: UIImageView = {
+    var profileImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "Image")
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = image.frame.height / 2
+        image.layer.cornerRadius = 30
         image.clipsToBounds = true
         return image
     }()
     
-    private let addPhoto = GWhiteRectangleButton(title: "Add photo")
-    private let addVoice = GWhiteRectangleButton(title: "Add voice")
+
     private let selectLocation = GWhiteRectangleButton(title: "Select location")
     private let addMore = GWhiteRectangleButton(title: "Add more")
     
+    private lazy var addVoice: GWhiteRectangleButton = {
+        let btn = GWhiteRectangleButton(title: "Add voice")
+        btn.addTarget(self, action: #selector(chooseAudio), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var addPhoto: GWhiteRectangleButton = {
+        let btn = GWhiteRectangleButton(title: "Add photo")
+        btn.addTarget(self, action: #selector(choosePhoto), for: .touchUpInside)
+        return btn
+    }()
+    
     private lazy var postButton: GWhiteRectangleButton = {
         let btn = GWhiteRectangleButton(title: "Post", backColor: .black, tintColor: .white)
+        btn.titleLabel?.font = .medium21
         btn.addTarget(self, action: #selector(createPost), for: .touchUpInside)
         return btn
     }()
@@ -84,6 +105,7 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        hideKeyboard()
     }
     
     func showAlert() {
@@ -93,8 +115,26 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         present(alert, animated: true)
     }
     
+    func hideKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func chooseAudio() {
+        presenter?.uploadFile()
+    }
+    
     @objc func createPost() {
         presenter?.createPost()
+    
+    }
+    
+    @objc func choosePhoto() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true)
     }
 }
 
@@ -128,9 +168,15 @@ private extension CreatePostViewController {
             margin.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
             
             guideNameTextField.heightAnchor.constraint(equalToConstant: 50),
-//            guideDescriptionTextField.heightAnchor.constraint(equalToConstant: 184),
             profileImage.heightAnchor.constraint(equalToConstant: 60),
             profileImage.widthAnchor.constraint(equalToConstant: 60),
         ])
+    }
+}
+
+extension CreatePostViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        profileImage.image = info[.editedImage] as? UIImage
+        dismiss(animated: true)
     }
 }
