@@ -66,6 +66,12 @@
 		864D100029B9E06E00282E70 /* NotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D0FFC29B9E06E00282E70 /* NotificationRouter.swift */; };
 		864D100129B9E06E00282E70 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D0FFD29B9E06E00282E70 /* NotificationViewController.swift */; };
 		864D100229B9E06E00282E70 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864D0FFE29B9E06E00282E70 /* NotificationViewModel.swift */; };
+		865DA80429DEC4F700B6914C /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865DA80329DEC4F700B6914C /* NotificationCell.swift */; };
+		865DA80929DECD8700B6914C /* PlacesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865DA80529DECD8700B6914C /* PlacesPresenter.swift */; };
+		865DA80A29DECD8700B6914C /* PlacesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865DA80629DECD8700B6914C /* PlacesRouter.swift */; };
+		865DA80B29DECD8700B6914C /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865DA80729DECD8700B6914C /* PlacesViewController.swift */; };
+		865DA80C29DECD8700B6914C /* PlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865DA80829DECD8700B6914C /* PlacesViewModel.swift */; };
+		865DA80F29DECDF100B6914C /* PlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865DA80E29DECDF100B6914C /* PlacesCell.swift */; };
 		8660C6E729B07C7D000514E9 /* PostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6E329B07C7D000514E9 /* PostPresenter.swift */; };
 		8660C6E829B07C7D000514E9 /* PostRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6E429B07C7D000514E9 /* PostRouter.swift */; };
 		8660C6E929B07C7D000514E9 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6E529B07C7D000514E9 /* PostViewController.swift */; };
@@ -144,6 +150,12 @@
 		864D0FFC29B9E06E00282E70 /* NotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouter.swift; sourceTree = "<group>"; };
 		864D0FFD29B9E06E00282E70 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		864D0FFE29B9E06E00282E70 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		865DA80329DEC4F700B6914C /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		865DA80529DECD8700B6914C /* PlacesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesPresenter.swift; sourceTree = "<group>"; };
+		865DA80629DECD8700B6914C /* PlacesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesRouter.swift; sourceTree = "<group>"; };
+		865DA80729DECD8700B6914C /* PlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
+		865DA80829DECD8700B6914C /* PlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewModel.swift; sourceTree = "<group>"; };
+		865DA80E29DECDF100B6914C /* PlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesCell.swift; sourceTree = "<group>"; };
 		8660C6E329B07C7D000514E9 /* PostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPresenter.swift; sourceTree = "<group>"; };
 		8660C6E429B07C7D000514E9 /* PostRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRouter.swift; sourceTree = "<group>"; };
 		8660C6E529B07C7D000514E9 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -296,6 +308,7 @@
 				8642F90829B8AD35003C4D9F /* CreatePostModule */,
 				8642F8FD29B8AC16003C4D9F /* LoginModule */,
 				8642F91529B8AE86003C4D9F /* MapModule */,
+				865DA80D29DECD8B00B6914C /* PlacesModule */,
 				864D100329B9E07100282E70 /* NotificationModule */,
 			);
 			path = Modules;
@@ -662,9 +675,22 @@
 				864D0FFB29B9E06E00282E70 /* NotificationPresenter.swift */,
 				864D0FFC29B9E06E00282E70 /* NotificationRouter.swift */,
 				864D0FFD29B9E06E00282E70 /* NotificationViewController.swift */,
+				865DA80329DEC4F700B6914C /* NotificationCell.swift */,
 				864D0FFE29B9E06E00282E70 /* NotificationViewModel.swift */,
 			);
 			path = NotificationModule;
+			sourceTree = "<group>";
+		};
+		865DA80D29DECD8B00B6914C /* PlacesModule */ = {
+			isa = PBXGroup;
+			children = (
+				865DA80529DECD8700B6914C /* PlacesPresenter.swift */,
+				865DA80629DECD8700B6914C /* PlacesRouter.swift */,
+				865DA80729DECD8700B6914C /* PlacesViewController.swift */,
+				865DA80E29DECDF100B6914C /* PlacesCell.swift */,
+				865DA80829DECD8700B6914C /* PlacesViewModel.swift */,
+			);
+			path = PlacesModule;
 			sourceTree = "<group>";
 		};
 		8660C6EB29B09939000514E9 /* SearchModule */ = {
@@ -778,6 +804,7 @@
 				8642F8FA29B8ABFC003C4D9F /* LoginPresenter.swift in Sources */,
 				862C9FC429AF7A7900B71EAC /* GLabel.swift in Sources */,
 				8630104029AFBFEE00A0EAA1 /* GuestRouter.swift in Sources */,
+				865DA80F29DECDF100B6914C /* PlacesCell.swift in Sources */,
 				8642F91229B8AE82003C4D9F /* MapsRouter.swift in Sources */,
 				8642F91329B8AE82003C4D9F /* MapsViewController.swift in Sources */,
 				8630104D29AFD4B200A0EAA1 /* AudioRouter.swift in Sources */,
@@ -785,6 +812,7 @@
 				86EACADD29B262EB00523B97 /* LoginViewController.swift in Sources */,
 				861EB9E229AF7CB50063988C /* UIFont++.swift in Sources */,
 				8642F90729B8AD32003C4D9F /* CreatePostViewModel.swift in Sources */,
+				865DA80B29DECD8700B6914C /* PlacesViewController.swift in Sources */,
 				86EACADB29B25E3500523B97 /* GWhiteRectangleButton.swift in Sources */,
 				8630105B29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift in Sources */,
 				862C9F8629AF723200B71EAC /* AppDelegate.swift in Sources */,
@@ -795,6 +823,7 @@
 				862C9FB629AF773100B71EAC /* ProfileViewModel.swift in Sources */,
 				8630103F29AFBFEE00A0EAA1 /* GuestPresenter.swift in Sources */,
 				862C9FB329AF773100B71EAC /* ProfilePresenter.swift in Sources */,
+				865DA80929DECD8700B6914C /* PlacesPresenter.swift in Sources */,
 				8660C6E829B07C7D000514E9 /* PostRouter.swift in Sources */,
 				861EBA1A29AF9C0E0063988C /* GPost.swift in Sources */,
 				8660C6F329B0994E000514E9 /* SearchViewModel.swift in Sources */,
@@ -804,6 +833,7 @@
 				8660C6F129B0994E000514E9 /* SearchRouter.swift in Sources */,
 				864D100229B9E06E00282E70 /* NotificationViewModel.swift in Sources */,
 				861EBA0329AF85290063988C /* GLikeCommentButton.swift in Sources */,
+				865DA80429DEC4F700B6914C /* NotificationCell.swift in Sources */,
 				8660C6E929B07C7D000514E9 /* PostViewController.swift in Sources */,
 				8630105529AFDDE500A0EAA1 /* PostView.swift in Sources */,
 				86EACAE129B2636700523B97 /* HaveAccountButton.swift in Sources */,
@@ -815,7 +845,9 @@
 				861EB9D929AF7C1F0063988C /* XCFonts+Generated.swift in Sources */,
 				862C9FC629AF7AA200B71EAC /* UIColor++.swift in Sources */,
 				861EBA1C29AF9C2D0063988C /* GCollectionViewCell.swift in Sources */,
+				865DA80C29DECD8700B6914C /* PlacesViewModel.swift in Sources */,
 				8642F91429B8AE82003C4D9F /* MapsViewModel.swift in Sources */,
+				865DA80A29DECD8700B6914C /* PlacesRouter.swift in Sources */,
 				8660C6E729B07C7D000514E9 /* PostPresenter.swift in Sources */,
 				862C9FA129AF74E300B71EAC /* TabBarController.swift in Sources */,
 				862C9FBF29AF7A0F00B71EAC /* ProfileView.swift in Sources */,
@@ -970,6 +1002,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1000,6 +1033,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
