@@ -1,10 +1,3 @@
-//
-//  LoginViewController.swift
-//  Guidancer
-//
-//  Created by Vladimir Berezin on 04.11.22.
-//
-
 import UIKit
 
 protocol LoginViewProtocol: AnyObject {
@@ -55,20 +48,19 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
         super.viewDidLoad()
         setupView()
         configSignInButton()
-        let text = UITextField()
-        text.isSecureTextEntry = true
 
     }
     
     @objc func presentLogin() {
-        presenter?.enterInAcc()
+        presenter?.loginInAccount()
         tabBarController?.hidesBottomBarWhenPushed = true
     }
     
     func pushProfileController() {
-        let nav = UINavigationController(rootViewController: (presenter?.presentProfile())!)
-        nav.modalPresentationStyle = .currentContext
-        present(nav, animated: true)
+        guard let controller = presenter?.presentProfile() else { return }
+        let navigtaionController = UINavigationController(rootViewController: controller)
+        navigtaionController.modalPresentationStyle = .currentContext
+        present(navigtaionController, animated: true)
     }
     
     func showAlert() {

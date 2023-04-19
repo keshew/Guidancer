@@ -3,7 +3,7 @@ import UIKit
 protocol ProfilePresenterProtocol: AnyObject {
     init(view: ProfileViewProtocol, network: NetworkManagerProtocol, router: ProfileRouterProtocol?)
     var viewModel: ProfileViewModel? { get set }
-    func sayHi()
+    func getPosts()
     func pushController(post: PostElement?) -> UIViewController
 }
 
@@ -23,7 +23,7 @@ class ProfilePresenter {
         return router?.initialPostController(post: post) ?? UIViewController()
     }
     
-    func sayHi() {
+    func getPosts() {
         viewModel = ProfileViewModel()
         network?.getPost(completion: { [weak self] post in
             DispatchQueue.main.async {

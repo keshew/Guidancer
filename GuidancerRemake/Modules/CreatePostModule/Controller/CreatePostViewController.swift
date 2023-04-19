@@ -56,16 +56,16 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
     }()
     
 
-    private let selectLocation = GWhiteRectangleButton(title: "Select location")
+    private let selectLocationButton = GWhiteRectangleButton(title: "Select location")
     private let addMore = GWhiteRectangleButton(title: "Add more")
     
-    private lazy var addVoice: GWhiteRectangleButton = {
+    private lazy var addVoiceButton: GWhiteRectangleButton = {
         let btn = GWhiteRectangleButton(title: "Add voice")
         btn.addTarget(self, action: #selector(chooseAudio), for: .touchUpInside)
         return btn
     }()
     
-    private lazy var addPhoto: GWhiteRectangleButton = {
+    private lazy var addPhotoButton: GWhiteRectangleButton = {
         let btn = GWhiteRectangleButton(title: "Add photo")
         btn.addTarget(self, action: #selector(choosePhoto), for: .touchUpInside)
         return btn
@@ -78,15 +78,15 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         return btn
     }()
     
-    private lazy var mainSV: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [addPhoto, addVoice, selectLocation])
+    private lazy var photoVoiceLocationStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [addPhotoButton, addVoiceButton, selectLocationButton])
         sv.spacing = 10
         sv.axis = .vertical
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
     
-    private lazy var miniSV: UIStackView = {
+    private lazy var addMorePostStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [addMore, postButton])
         sv.spacing = 10
         sv.axis = .vertical
@@ -94,8 +94,8 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         return sv
     }()
     
-    private lazy var stackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [mainSV, miniSV])
+    private lazy var mainStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [photoVoiceLocationStackView, addMorePostStackView])
         sv.spacing = 30
         sv.axis = .vertical
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -143,7 +143,7 @@ private extension CreatePostViewController {
         view.addSubview(titleLabel)
         view.addSubview(profileImage)
         view.addSubview(guideNameTextField)
-        view.addSubview(stackView)
+        view.addSubview(mainStackView)
         view.addSubview(guideDescriptionTextField)
         view.backgroundColor = .white
         let margin = view.layoutMarginsGuide
@@ -162,10 +162,10 @@ private extension CreatePostViewController {
             guideDescriptionTextField.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
             margin.trailingAnchor.constraint(equalTo: guideDescriptionTextField.trailingAnchor, constant: 10),
             
-            stackView.topAnchor.constraint(equalTo: guideDescriptionTextField.bottomAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
-            margin.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10),
-            margin.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
+            mainStackView.topAnchor.constraint(equalTo: guideDescriptionTextField.bottomAnchor, constant: 20),
+            mainStackView.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
+            margin.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: 10),
+            margin.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 10),
             
             guideNameTextField.heightAnchor.constraint(equalToConstant: 50),
             profileImage.heightAnchor.constraint(equalToConstant: 60),

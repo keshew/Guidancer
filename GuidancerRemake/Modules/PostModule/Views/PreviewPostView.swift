@@ -10,7 +10,7 @@ class PreviewPostView: UIView {
         return view
     }()
 
-    private var imageOfProfile: UIImageView = {
+    private var profileImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 10
@@ -29,14 +29,14 @@ class PreviewPostView: UIView {
         return label
     }()
 
-    var currentMinute: GLabel = {
+    var currentMinuteLabel: GLabel = {
         let label = GLabel(font: .medium11)
         label.textColor = UIColor(named: "DarkGray")
         label.textAlignment = .left
         return label
     }()
 
-    let maxMinute: GLabel = {
+    let maxMinuteLabel: GLabel = {
         let label = GLabel(font: .medium11)
         label.textColor = UIColor(named: "DarkGray")
         label.textAlignment = .right
@@ -54,7 +54,7 @@ class PreviewPostView: UIView {
         return label
     }()
 
-    var progressView: UISlider = {
+    var progressSlider: UISlider = {
         let view = UISlider()
         view.tintColor = UIColor(named: "green")
         return view
@@ -66,20 +66,20 @@ class PreviewPostView: UIView {
         return btn
     }()
 
-    lazy var leftButton: UIButton = {
+    lazy var previosButton: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "left"), for: .normal)
         return btn
     }()
 
-    private let rightButton: UIButton = {
+    private let nexttButton: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "right"), for: .normal)
         return btn
     }()
 
     private lazy var buttonStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [leftButton, pauseButton, rightButton])
+        let view = UIStackView(arrangedSubviews: [previosButton, pauseButton, nexttButton])
         view.axis = .horizontal
         view.spacing = 1
         view.distribution = .fillProportionally
@@ -88,7 +88,7 @@ class PreviewPostView: UIView {
     }()
 
     private lazy var timeStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [currentMinute, maxMinute])
+        let view = UIStackView(arrangedSubviews: [currentMinuteLabel, maxMinuteLabel])
         view.axis = .horizontal
         view.distribution = .fillProportionally
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +96,7 @@ class PreviewPostView: UIView {
     }()
 
     private lazy var mainStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [imageOfProfile, titleLabel, secondTitleLabel, nicknameLabel, textLabel, progressView])
+        let view = UIStackView(arrangedSubviews: [profileImage, titleLabel, secondTitleLabel, nicknameLabel, textLabel, progressSlider])
         view.axis = .vertical
         view.spacing = 15
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +113,7 @@ class PreviewPostView: UIView {
     }
 
     func setupView(image: String?, nickname: String, firstTitle: String, secondTitle: String, text: String) {
-        imageOfProfile.kf.setImage(with: URL(string: image ?? ""))
+        profileImage.kf.setImage(with: URL(string: image ?? ""))
         nicknameLabel.text = nickname
         titleLabel.text = firstTitle
         secondTitleLabel.text = secondTitle
@@ -125,28 +125,27 @@ class PreviewPostView: UIView {
 private extension PreviewPostView {
     func configureView() {
         backgroundColor = .white
-//        buttonStackView.backgroundColor = .red
         secondTitleLabel.textColor = UIColor(named: "DarkGray")
         addSubview(mainStackView)
         addSubview(buttonStackView)
         addSubview(timeStackView)
-        addSubview(imageOfProfile)
+        addSubview(profileImage)
         addSubview(lineView)
         
         NSLayoutConstraint.activate([
-            progressView.heightAnchor.constraint(equalToConstant: 10),
+            progressSlider.heightAnchor.constraint(equalToConstant: 10),
             lineView.heightAnchor.constraint(equalToConstant: 1),
             lineView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
 
             lineView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIScreen.main.bounds.width / 2 - UIScreen.main.bounds.width / 4),
 
-            imageOfProfile.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 10),
-            imageOfProfile.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            trailingAnchor.constraint(equalTo: imageOfProfile.trailingAnchor, constant: 25),
+            profileImage.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 10),
+            profileImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            trailingAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: 25),
 
 
-            mainStackView.topAnchor.constraint(equalTo: imageOfProfile.bottomAnchor, constant: 25),
+            mainStackView.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 25),
             mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: 25),
 

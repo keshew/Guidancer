@@ -78,7 +78,7 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter?.sayHi()
+        presenter?.getPosts()
     }
     
     func sucsess() {
@@ -185,3 +185,4 @@ private extension ProfileViewController {
         followButton.addTarget(self, action: #selector(buttonFollowTapped), for: .touchUpInside)
     }
 }
+

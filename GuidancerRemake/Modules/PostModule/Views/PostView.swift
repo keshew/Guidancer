@@ -3,7 +3,6 @@ import MediaPlayer
 
 class PostView: UIView {
     static var shared = PostView()
-    
     var player: AVPlayer!
     
     private let lineView: UIView = {
@@ -13,18 +12,17 @@ class PostView: UIView {
         return view
     }()
     
-    private var imageOfProfile: UIImageView = {
+    private var profileImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
         image.layer.cornerRadius = 25
-//        image.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         return image
     }()
 
-    private var nickname = GLabel(font: .semiBold18,
+    private var nicknameLabel = GLabel(font: .semiBold18,
                                   numberOfLines: 1)
     
-    private var followers: GLabel = {
+    private var followersLabel: GLabel = {
         let label = GLabel(text: "2.2K", font: .regular14)
         label.textAlignment = .center
         return label
@@ -39,14 +37,14 @@ class PostView: UIView {
         return btn
     }()
     
-    private let titleOfText: GLabel = {
+    private let titleOfTextLabel: GLabel = {
         let titleOfText = GLabel(font: .medium18)
         titleOfText.textColor = UIColor(named: "green")
         titleOfText.translatesAutoresizingMaskIntoConstraints = false
         return titleOfText
     }()
     
-    private let mainText: GLabel = {
+    private let mainTextLabel: GLabel = {
         let titleOfText = GLabel(font: .regular15)
         titleOfText.translatesAutoresizingMaskIntoConstraints = false
         return titleOfText
@@ -70,34 +68,34 @@ class PostView: UIView {
         return btn
     }()
     
-    private lazy var stackViewOfProfile: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [imageOfProfile, nickname])
+    private lazy var profileStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [profileImage, nicknameLabel])
         view.spacing = 15
         return view
     }()
     
-    private lazy var likesSV: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [followers, likeButton])
+    private lazy var likesStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [followersLabel, likeButton])
 //        view.setContentCompressionResistancePriority(.defaultHigh + 2, for: .horizontal)
         view.spacing = 5
         return view
     }()
     
-    private lazy var buttonSV: UIStackView = {
+    private lazy var buttonStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [playButton, navigationButton])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.spacing = 40
         return view
     }()
     
-    private lazy var mainStack: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [stackViewOfProfile, likesSV])
+    private lazy var mainStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [profileStackView, likesStackView])
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var textStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [titleOfText, mainText])
+        let view = UIStackView(arrangedSubviews: [titleOfTextLabel, mainTextLabel])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         return view
@@ -125,24 +123,24 @@ class PostView: UIView {
     }
     
     func setupView(image: String?, nickname: String, firstTitle: String, text: String) {
-        imageOfProfile.kf.setImage(with: URL(string: image ?? ""))
-        self.nickname.text = nickname
-        titleOfText.text = firstTitle
-        mainText.text = text
+        profileImage.kf.setImage(with: URL(string: image ?? ""))
+        self.nicknameLabel.text = nickname
+        titleOfTextLabel.text = firstTitle
+        mainTextLabel.text = text
     }
 }
 
 private extension PostView {
     func configureView() {
         backgroundColor = .white
-        addSubview(mainStack)
+        addSubview(mainStackView)
         addSubview(textStackView)
-        addSubview(buttonSV)
+        addSubview(buttonStackView)
         addSubview(lineView)
        
         NSLayoutConstraint.activate([
-            imageOfProfile.heightAnchor.constraint(equalToConstant: 50),
-            imageOfProfile.widthAnchor.constraint(equalToConstant: 50),
+            profileImage.heightAnchor.constraint(equalToConstant: 50),
+            profileImage.widthAnchor.constraint(equalToConstant: 50),
             
             lineView.heightAnchor.constraint(equalToConstant: 1),
             lineView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3),
@@ -150,22 +148,22 @@ private extension PostView {
             lineView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIScreen.main.bounds.width / 2 - UIScreen.main.bounds.width / 6),
             
-            mainStack.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 30),
-            mainStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            trailingAnchor.constraint(equalTo: mainStack.trailingAnchor, constant: 25),
+            mainStackView.topAnchor.constraint(equalTo: lineView.bottomAnchor, constant: 30),
+            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: 25),
             
-            textStackView.topAnchor.constraint(equalTo: mainStack.bottomAnchor, constant: 15),
+            textStackView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 15),
             textStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             trailingAnchor.constraint(equalTo: textStackView.trailingAnchor, constant: 25),
             
-            buttonSV.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIScreen.main.bounds.width / 2 - 27),
-            buttonSV.topAnchor.constraint(equalTo: textStackView.bottomAnchor, constant: 5),
-            bottomAnchor.constraint(equalTo: buttonSV.bottomAnchor, constant: UIScreen.main.bounds.height / 20),
+            buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: UIScreen.main.bounds.width / 2 - 27),
+            buttonStackView.topAnchor.constraint(equalTo: textStackView.bottomAnchor, constant: 5),
+            bottomAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: UIScreen.main.bounds.height / 20),
             
             playButton.heightAnchor.constraint(equalToConstant: 54),
             playButton.widthAnchor.constraint(equalToConstant: 54),
             
-            titleOfText.heightAnchor.constraint(equalToConstant: 30)
+            titleOfTextLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
         
     }

@@ -15,6 +15,7 @@ final class TabBarViewController: UITabBarController {
         let mapsRouter = MapsRouter(navigationController: navControl, builder: builder)
         let loginRouter = LoginRouter(navigationController: navControl, builder: builder)
         let notifRouter = NotificationRouter(navigationController: navControl, builder: builder)
+        
         setViewControllers([
             generateViewControllers(
                 viewController: UINavigationController(rootViewController: builder.buildMaps(router: mapsRouter)),
@@ -37,7 +38,6 @@ final class TabBarViewController: UITabBarController {
                 viewController: UINavigationController(rootViewController: builder.buildLogin(router: loginRouter)),
                 image: UIImage(named: "ProfileModule")
             )],animated: true)
-            
     }
     
     private func generateViewControllers(viewController: UINavigationController, image: UIImage?) -> UIViewController {

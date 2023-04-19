@@ -12,7 +12,7 @@ class GuestViewController: ProfileViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        presenters?.getInfoPost()
+        presenters?.getPosts()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

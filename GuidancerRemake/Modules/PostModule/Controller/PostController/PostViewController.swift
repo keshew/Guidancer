@@ -41,7 +41,7 @@ private extension PostViewController {
     
     func addTarget() {
         openPost.pauseButton.addTarget(self, action: #selector(playMusic), for: .touchUpInside)
-        openPost.progressView.addTarget(self, action: #selector(changeSlider), for: .valueChanged)
+        openPost.progressSlider.addTarget(self, action: #selector(changeSlider), for: .valueChanged)
     }
     func configureView() {
         openPost.layer.zPosition = 1

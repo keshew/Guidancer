@@ -42,14 +42,14 @@ final class AudioGuideViewController: UIViewController {
         super.viewDidLoad()
         presenter?.getInfoPost()
         configureView()
-        openPost.playButton.addTarget(self, action: #selector(pushing), for: .touchUpInside)
+        openPost.playButton.addTarget(self, action: #selector(pushPostController), for: .touchUpInside)
         navigationItem.leftBarButtonItem = barButtonItem
     }
     @objc func dismissVC() {
         dismiss(animated: true)
     }
     
-    @objc func pushing() {
+    @objc func pushPostController() {
         presenter?.tappedPlay()
         guard let player = presenter?.player else { return }
         let navControl = UINavigationController()

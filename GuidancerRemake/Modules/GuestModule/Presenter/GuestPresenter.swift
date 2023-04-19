@@ -3,7 +3,7 @@ import UIKit
 protocol GuestPresenterProtocol: AnyObject {
     init(view: GuestViewProtocol, network: NetworkManagerProtocol, router: GuestRouterProtocol?)
     var viewModel: GuestViewModel? { get set }
-    func getInfoPost()
+    func getPosts()
 }
 
 class GuestPresenter {
@@ -18,7 +18,7 @@ class GuestPresenter {
         self.router = router
     }
     
-    func getInfoPost() {
+    func getPosts() {
         viewModel = GuestViewModel()
         network?.getPost(completion: { [weak self] post in
             DispatchQueue.main.async {

@@ -2,24 +2,27 @@ import UIKit
 
 protocol NetworkManagerProtocol: AnyObject {
     func getPost(completion: @escaping (Result<Post, Error>) -> Void)
+    func loginInAccount(email: String, password: String, sucsessCompletion: @escaping () -> (), faillureCompletion:  @escaping () -> ())
 }
-
+//test@test.com
+//test123
 fileprivate enum APIType {
     
     case getPost
+    case loginInAccount
     
     var path: String {
         switch self {
         case .getPost: return "posts"
-//        case .getPost: return "random?number=20&apiKey=29b6b28f28904fc3a4946eed49a5833b&"
+        case .loginInAccount: return "auth/login"
         }
+        
     }
     
     var baseURL: String {
         return "http://31.31.203.226:4444/"
-//        return "https://api.spoonacular.com/recipes/"
     }
-
+    
     var url: URL {
         let url = URL(string: path, relativeTo: URL(string: baseURL))
         return url!
@@ -51,4 +54,34 @@ final class NetworkManager: NetworkManagerProtocol  {
         }
         task.resume()
     }
+    
+    func loginInAccount(email: String, password: String, sucsessCompletion: @escaping () -> (), faillureCompletion:  @escaping () -> ()) {
+        let parameters = ["email": email, "password": password]
+        var request = APIType.loginInAccount.request
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        request.httpBody = httpBody
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                let httpResponse = response as? HTTPURLResponse
+                switch httpResponse?.statusCode
+                {
+                case HTTPStatusCodeGroup.Success.rawValue :
+                    sucsessCompletion()
+                default:
+                    faillureCompletion()
+                }
+                guard let data else { return }
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        task.resume()
+    }
 }
+

@@ -92,7 +92,6 @@ extension MapsViewController: CLLocationManagerDelegate {
             manager.stopUpdatingLocation()
             render(location)
         }
-        
     }
     
     func render(_ location: CLLocation) {
@@ -126,7 +125,7 @@ extension MapsViewController: CLLocationManagerDelegate {
             let annotationLocation = CLLocation(latitude: i.coordinate.latitude, longitude: i.coordinate.longitude)
             let userLocation2 = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
             let distance = Int(userLocation2.distance(from: annotationLocation))
-            print("DISTANCE FROM \(i) TO ME IS", distance)
+//            print("DISTANCE FROM \(i) TO ME IS", distance)
             arrayNumbers.append(distance)
             let coordinate = CLLocationCoordinate2D(latitude: i.coordinate.latitude, longitude: i.coordinate.longitude)
             sahar[distance] = coordinate

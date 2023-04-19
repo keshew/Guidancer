@@ -35,19 +35,19 @@ class PostPresenter {
             view?.openPost.pauseButton.setImage(UIImage(named: "pause"), for: .normal)
         }
         
-        view?.openPost.maxMinute.text = String(describing: Int(player?.currentItem?.asset.duration.seconds ?? 0)) + " seconds"
+        view?.openPost.maxMinuteLabel.text = String(describing: Int(player?.currentItem?.asset.duration.seconds ?? 0)) + " seconds"
         player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1000),
                                         queue: .main) { time in
-            self.view?.openPost.progressView.minimumValue = Float(self.player?.currentItem?.asset.duration.seconds ?? 0)
-            self.view?.openPost.progressView.minimumValue = 0
-            self.view?.openPost.currentMinute.text = String(describing: Int(time.seconds)) + " seconds"
-            self.view?.openPost.progressView.value = Float(time.seconds)
+            self.view?.openPost.progressSlider.minimumValue = Float(self.player?.currentItem?.asset.duration.seconds ?? 0)
+            self.view?.openPost.progressSlider.minimumValue = 0
+            self.view?.openPost.currentMinuteLabel.text = String(describing: Int(time.seconds)) + " seconds"
+            self.view?.openPost.progressSlider.value = Float(time.seconds)
         }
     }
     
     func sliderChange() {
-        player?.seek(to: CMTime(seconds: Double(view?.openPost.progressView.value ?? 0), preferredTimescale: 1000))
-        self.view?.openPost.currentMinute.text = String(describing: Int(view?.openPost.progressView.value ?? 0))  + " seconds"
+        player?.seek(to: CMTime(seconds: Double(view?.openPost.progressSlider.value ?? 0), preferredTimescale: 1000))
+        self.view?.openPost.currentMinuteLabel.text = String(describing: Int(view?.openPost.progressSlider.value ?? 0))  + " seconds"
     }
     
     func getInfoPost() {

@@ -12,17 +12,4 @@ class AudioRouter: AudioRouterProtocol {
         self.navigationController = navigationController
         self.builder = builder
     }
-    
-    func initialViewController(post: PostElement?) {
-        if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildAudio(post: post, router: self) else { return }
-            navigationController.viewControllers = [mainViewController]
-        }
-    }
-    
-    func popToRoot() {
-        if let navigationController = navigationController {
-            navigationController.popViewController(animated: true)
-        }
-    }
 }

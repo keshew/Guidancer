@@ -10,7 +10,7 @@ final class SearchViewController: UIViewController {
     var presenter: SearchPresenterProtocol?
     var collectionView: UICollectionView!
     let searchController = UISearchController()
-    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    let collectionViewLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
     
     private lazy var popularButton: UIButton = {
         let btn = UIButton()
@@ -62,7 +62,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchScreenCollectionViewCell.identifier, for: indexPath) as! SearchScreenCollectionViewCell
         let model = presenter?.viewModel?.searchViewModel?[indexPath.row]
         cell.setupContent(post: .mock, image: model?.imageUrl ?? "",
-                          cityName: model?.title ?? "kek",
+                          cityName: model?.title ?? "",
                           descriptionOfPlace: model?.text ?? "")
         return cell
         
@@ -85,15 +85,15 @@ private extension SearchViewController {
     }
     
     func setupLayout() {
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 200)
-        layout.scrollDirection = .vertical
+        collectionViewLayout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 200)
+        collectionViewLayout.scrollDirection = .vertical
     }
     
     func setupCollectionViews() {
         view.backgroundColor = .white
         collectionView = UICollectionView(
             frame: CGRect(),
-            collectionViewLayout: layout)
+            collectionViewLayout: collectionViewLayout)
         view.addSubview(collectionView)
         view.addSubview(followedButton)
         view.addSubview(popularButton)

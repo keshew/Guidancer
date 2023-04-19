@@ -12,17 +12,4 @@ class MapsRouter: MapsRouterProtocol {
         self.navigationController = navigationController
         self.builder = builder
     }
-    
-    func initialViewController() {
-        if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildMaps(router: self) else { return }
-            navigationController.viewControllers = [mainViewController]
-        }
-    }
-    
-    func popToRoot() {
-        if let navigationController = navigationController {
-            navigationController.popViewController(animated: true)
-        }
-    }
 }
