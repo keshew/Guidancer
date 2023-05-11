@@ -7,11 +7,17 @@ protocol CreatePostViewProtocol: AnyObject {
     var guideNameTextField: UITextField { get set }
     var guideDescriptionTextField: UITextView { get set }
     var profileImage: UIImageView { get set }
+    var adressLabel: UILabel { get set }
     func showAlert()
+    func hidePreviousPost()
 }
 
-final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
-    
+protocol isAbleToReceiveData {
+    func pass(data: String)
+    func makeConstraints()
+}
+
+final class CreatePostViewController: UIViewController, CreatePostViewProtocol, isAbleToReceiveData {
     
     var presenter: CreatePostPresenterProtocol?
     var arrayOfPickedImages: [UIImage] = []
@@ -24,9 +30,9 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         return label
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.height / 13, height: UIScreen.main.bounds.height / 13)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.height / 18, height: UIScreen.main.bounds.height / 18)
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.dataSource = self
@@ -41,6 +47,19 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(named: "voice"), for: .normal)
         return btn
+    }()
+    
+    var adressLabel: UILabel = {
+        let label = UILabel()
+        label.tintColor = .black
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .regular15
+        label.layer.borderColor = UIColor.black.cgColor
+        label.layer.borderWidth = 1
+        label.layer.cornerRadius = 15
+        label.clipsToBounds = true
+        return label
     }()
     
     var guideNameTextField: UITextField = {
@@ -74,8 +93,13 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
     }()
     
 
-    private let selectLocationButton = GWhiteRectangleButton(title: "Select location")
     private let addMore = GWhiteRectangleButton(title: "Add more")
+    
+    private lazy var selectLocationButton: GWhiteRectangleButton = {
+        let btn = GWhiteRectangleButton(title: "Select location")
+        btn.addTarget(self, action: #selector(selectLocation), for: .touchUpInside)
+        return btn
+    }()
     
     private lazy var addVoiceButton: GWhiteRectangleButton = {
         let btn = GWhiteRectangleButton(title: "Add voice")
@@ -115,11 +139,45 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol {
         view.addGestureRecognizer(tapGesture)
     }
     
+    func pass(data: String) {
+        adressLabel.text = data
+    }
+    
+    func makeConstraints() {
+        view.addSubview(adressLabel)
+        NSLayoutConstraint.activate([
+            adressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            adressLabel.topAnchor.constraint(equalTo: selectLocationButton.bottomAnchor, constant: 10),
+            view.trailingAnchor.constraint(equalTo: adressLabel.trailingAnchor, constant: 25),
+            adressLabel.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 21.5)
+        ])
+    }
+    
+    func hidePreviousPost() {
+        arrayOfPickedImages = []
+        collectionView.reloadData()
+//        collectionView.removeFromSuperview()
+        adressLabel.text = ""
+        guideNameTextField.text = ""
+        guideDescriptionTextField.text = ""
+    }
+    
     @objc func chooseAudio() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.mp3], asCopy: true)
         documentPicker.delegate = self
         documentPicker.allowsMultipleSelection = false
         present(documentPicker, animated: true, completion: nil)
+    }
+    
+    @objc func selectLocation() {
+        //to presenter
+        guard let navigationController else { return }
+        let builder = ModuleBuilder()
+        let router = PickPlaceRouter(navigationController: navigationController, builder: builder)
+        let mainViewController = builder.buildPickPlace(router: router) as! PickPlaceViewController
+        mainViewController.delegate = self
+        mainViewController.modalPresentationStyle = .fullScreen
+        present(mainViewController, animated: true)
     }
     
     @objc func createPost() {
@@ -149,7 +207,6 @@ private extension CreatePostViewController {
         view.addSubview(addMore)
         view.addSubview(postButton)
         view.addSubview(collectionView)
-        
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: 10),
@@ -188,10 +245,10 @@ private extension CreatePostViewController {
             postButton.topAnchor.constraint(equalTo: addMore.bottomAnchor, constant: 10),
             
             guideNameTextField.heightAnchor.constraint(equalToConstant: 50),
-            guideDescriptionTextField.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 6),
+            guideDescriptionTextField.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 7),
             profileImage.heightAnchor.constraint(equalToConstant: 60),
             profileImage.widthAnchor.constraint(equalToConstant: 60),
-            collectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 11)
+            collectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 18)
         ])
     }
 }
@@ -207,8 +264,10 @@ private extension CreatePostViewController {
         selectLocationButton.removeFromSuperview()
         view.addSubview(addVoiceButton)
         view.addSubview(selectLocationButton)
+        view.addSubview(adressLabel)
         
         if voiceButton.isDescendant(of: view) {
+            
             NSLayoutConstraint.activate([
                 collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27),
                 collectionView.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 10),
@@ -225,8 +284,14 @@ private extension CreatePostViewController {
                 selectLocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
                 selectLocationButton.topAnchor.constraint(equalTo: voiceButton.bottomAnchor, constant: 10),
                 view.trailingAnchor.constraint(equalTo: selectLocationButton.trailingAnchor, constant: 25),
+                
+//                adressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+//                adressLabel.topAnchor.constraint(equalTo: selectLocationButton.bottomAnchor, constant: 10),
+//                view.trailingAnchor.constraint(equalTo: adressLabel.trailingAnchor, constant: 25),
+//                adressLabel.heightAnchor.constraint(equalToConstant: 40)
             ])
         } else {
+            
             NSLayoutConstraint.activate([
                 collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27),
                 collectionView.topAnchor.constraint(equalTo: addPhotoButton.bottomAnchor, constant: 10),
@@ -239,6 +304,11 @@ private extension CreatePostViewController {
                 selectLocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
                 selectLocationButton.topAnchor.constraint(equalTo: addVoiceButton.bottomAnchor, constant: 10),
                 view.trailingAnchor.constraint(equalTo: selectLocationButton.trailingAnchor, constant: 25),
+                
+//                adressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+//                adressLabel.topAnchor.constraint(equalTo: selectLocationButton.bottomAnchor, constant: 10),
+//                view.trailingAnchor.constraint(equalTo: adressLabel.trailingAnchor, constant: 25),
+//                adressLabel.heightAnchor.constraint(equalToConstant: 40)
             ])
         }
         
@@ -265,7 +335,6 @@ extension CreatePostViewController: UICollectionViewDataSource {
 extension CreatePostViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         presenter?.audio(urls: urls.first!)
-        
         
         selectLocationButton.removeFromSuperview()
         

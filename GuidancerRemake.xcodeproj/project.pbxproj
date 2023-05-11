@@ -52,6 +52,10 @@
 		8630105729AFDDFC00A0EAA1 /* PreviewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8630105629AFDDFC00A0EAA1 /* PreviewPostView.swift */; };
 		8630105929AFDFB500A0EAA1 /* AudioGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8630105829AFDFB500A0EAA1 /* AudioGuideViewController.swift */; };
 		8630105B29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8630105A29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift */; };
+		8636E61C2A0C2177002CA643 /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8636E6182A0C2177002CA643 /* RegisterPresenter.swift */; };
+		8636E61D2A0C2177002CA643 /* RegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8636E6192A0C2177002CA643 /* RegisterRouter.swift */; };
+		8636E61E2A0C2177002CA643 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8636E61A2A0C2177002CA643 /* RegisterViewController.swift */; };
+		8636E61F2A0C2177002CA643 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8636E61B2A0C2177002CA643 /* RegisterViewModel.swift */; };
 		8642F8FA29B8ABFC003C4D9F /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F8F729B8ABFC003C4D9F /* LoginPresenter.swift */; };
 		8642F8FB29B8ABFC003C4D9F /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F8F829B8ABFC003C4D9F /* LoginRouter.swift */; };
 		8642F8FC29B8ABFC003C4D9F /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8642F8F929B8ABFC003C4D9F /* LoginViewModel.swift */; };
@@ -81,6 +85,10 @@
 		8660C6F229B0994E000514E9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6EE29B0994E000514E9 /* SearchViewController.swift */; };
 		8660C6F329B0994E000514E9 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8660C6EF29B0994E000514E9 /* SearchViewModel.swift */; };
 		866B9AE329F3E104004792BD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 866B9AE229F3E104004792BD /* SnapKit */; };
+		8670C0B72A06623D004B7840 /* PickPlacePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670C0B32A06623D004B7840 /* PickPlacePresenter.swift */; };
+		8670C0B82A06623D004B7840 /* PickPlaceRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670C0B42A06623D004B7840 /* PickPlaceRouter.swift */; };
+		8670C0B92A06623D004B7840 /* PickPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670C0B52A06623D004B7840 /* PickPlaceViewController.swift */; };
+		8670C0BA2A06623D004B7840 /* PickPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670C0B62A06623D004B7840 /* PickPlaceViewModel.swift */; };
 		86888FED29B23EBA00F2CC53 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86888FEC29B23EBA00F2CC53 /* CreatePostViewController.swift */; };
 		86EACAD929B25E1400523B97 /* GTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EACAD829B25E1400523B97 /* GTextFields.swift */; };
 		86EACADB29B25E3500523B97 /* GWhiteRectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EACADA29B25E3500523B97 /* GWhiteRectangleButton.swift */; };
@@ -136,6 +144,10 @@
 		8630105629AFDDFC00A0EAA1 /* PreviewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPostView.swift; sourceTree = "<group>"; };
 		8630105829AFDFB500A0EAA1 /* AudioGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGuideViewController.swift; sourceTree = "<group>"; };
 		8630105A29AFDFEE00A0EAA1 /* AudioGuideMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGuideMapViewController.swift; sourceTree = "<group>"; };
+		8636E6182A0C2177002CA643 /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
+		8636E6192A0C2177002CA643 /* RegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRouter.swift; sourceTree = "<group>"; };
+		8636E61A2A0C2177002CA643 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		8636E61B2A0C2177002CA643 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		8642F8F729B8ABFC003C4D9F /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		8642F8F829B8ABFC003C4D9F /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		8642F8F929B8ABFC003C4D9F /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -164,6 +176,10 @@
 		8660C6ED29B0994E000514E9 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		8660C6EE29B0994E000514E9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8660C6EF29B0994E000514E9 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		8670C0B32A06623D004B7840 /* PickPlacePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlacePresenter.swift; sourceTree = "<group>"; };
+		8670C0B42A06623D004B7840 /* PickPlaceRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlaceRouter.swift; sourceTree = "<group>"; };
+		8670C0B52A06623D004B7840 /* PickPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlaceViewController.swift; sourceTree = "<group>"; };
+		8670C0B62A06623D004B7840 /* PickPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPlaceViewModel.swift; sourceTree = "<group>"; };
 		86888FEC29B23EBA00F2CC53 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		86EACAD829B25E1400523B97 /* GTextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTextFields.swift; sourceTree = "<group>"; };
 		86EACADA29B25E3500523B97 /* GWhiteRectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GWhiteRectangleButton.swift; sourceTree = "<group>"; };
@@ -299,15 +315,17 @@
 		862C9FA429AF763500B71EAC /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8642F91529B8AE86003C4D9F /* MapModule */,
+				8670C0BB2A066258004B7840 /* PickPlaceModule */,
+				865DA80D29DECD8B00B6914C /* PlacesModule */,
 				8660C6EB29B09939000514E9 /* SearchModule */,
 				8630104729AFC82D00A0EAA1 /* PostModule */,
+				8642F90829B8AD35003C4D9F /* CreatePostModule */,
+				864D100329B9E07100282E70 /* NotificationModule */,
 				8630103A29AFBFDE00A0EAA1 /* GuestModule */,
 				862C9FA529AF763C00B71EAC /* ProfileModule */,
-				8642F90829B8AD35003C4D9F /* CreatePostModule */,
 				8642F8FD29B8AC16003C4D9F /* LoginModule */,
-				8642F91529B8AE86003C4D9F /* MapModule */,
-				865DA80D29DECD8B00B6914C /* PlacesModule */,
-				864D100329B9E07100282E70 /* NotificationModule */,
+				8636E6172A0C2084002CA643 /* RegisterModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -539,6 +557,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8636E6172A0C2084002CA643 /* RegisterModule */ = {
+			isa = PBXGroup;
+			children = (
+				8636E6182A0C2177002CA643 /* RegisterPresenter.swift */,
+				8636E6192A0C2177002CA643 /* RegisterRouter.swift */,
+				8636E61A2A0C2177002CA643 /* RegisterViewController.swift */,
+				8636E61B2A0C2177002CA643 /* RegisterViewModel.swift */,
+			);
+			path = RegisterModule;
+			sourceTree = "<group>";
+		};
 		8642F8FD29B8AC16003C4D9F /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +732,17 @@
 			path = SearchModule;
 			sourceTree = "<group>";
 		};
+		8670C0BB2A066258004B7840 /* PickPlaceModule */ = {
+			isa = PBXGroup;
+			children = (
+				8670C0B32A06623D004B7840 /* PickPlacePresenter.swift */,
+				8670C0B42A06623D004B7840 /* PickPlaceRouter.swift */,
+				8670C0B52A06623D004B7840 /* PickPlaceViewController.swift */,
+				8670C0B62A06623D004B7840 /* PickPlaceViewModel.swift */,
+			);
+			path = PickPlaceModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -790,11 +830,14 @@
 				862C9FB429AF773100B71EAC /* ProfileRouter.swift in Sources */,
 				861EB9EC29AF7F660063988C /* SearchScreenCollectionViewCell.swift in Sources */,
 				861EB9E629AF7E000063988C /* MenuController.swift in Sources */,
+				8670C0BA2A06623D004B7840 /* PickPlaceViewModel.swift in Sources */,
+				8670C0B82A06623D004B7840 /* PickPlaceRouter.swift in Sources */,
 				861EBA1E29AF9C630063988C /* UIView++.swift in Sources */,
 				86EACADF29B2633D00523B97 /* GRectangleButton.swift in Sources */,
 				862C9FA229AF74E300B71EAC /* NetworkModel.swift in Sources */,
 				8642F8FC29B8ABFC003C4D9F /* LoginViewModel.swift in Sources */,
 				8630105929AFDFB500A0EAA1 /* AudioGuideViewController.swift in Sources */,
+				8636E61C2A0C2177002CA643 /* RegisterPresenter.swift in Sources */,
 				8642F91129B8AE82003C4D9F /* MapsPresenter.swift in Sources */,
 				8642F90629B8AD32003C4D9F /* CreatePostRouter.swift in Sources */,
 				864D100029B9E06E00282E70 /* NotificationRouter.swift in Sources */,
@@ -807,8 +850,10 @@
 				8642F91229B8AE82003C4D9F /* MapsRouter.swift in Sources */,
 				8642F91329B8AE82003C4D9F /* MapsViewController.swift in Sources */,
 				8630104D29AFD4B200A0EAA1 /* AudioRouter.swift in Sources */,
+				8636E61F2A0C2177002CA643 /* RegisterViewModel.swift in Sources */,
 				862C9F9F29AF74E300B71EAC /* NetworkManager.swift in Sources */,
 				86EACADD29B262EB00523B97 /* LoginViewController.swift in Sources */,
+				8636E61D2A0C2177002CA643 /* RegisterRouter.swift in Sources */,
 				861EB9E229AF7CB50063988C /* UIFont++.swift in Sources */,
 				8642F90729B8AD32003C4D9F /* CreatePostViewModel.swift in Sources */,
 				865DA80B29DECD8700B6914C /* PlacesViewController.swift in Sources */,
@@ -818,6 +863,7 @@
 				861EB9D829AF7C1F0063988C /* XCAssets+Generated.swift in Sources */,
 				8630104129AFBFEE00A0EAA1 /* GuestViewController.swift in Sources */,
 				8660C6F229B0994E000514E9 /* SearchViewController.swift in Sources */,
+				8670C0B92A06623D004B7840 /* PickPlaceViewController.swift in Sources */,
 				8630104229AFBFEE00A0EAA1 /* GuestViewModel.swift in Sources */,
 				862C9FB629AF773100B71EAC /* ProfileViewModel.swift in Sources */,
 				8630103F29AFBFEE00A0EAA1 /* GuestPresenter.swift in Sources */,
@@ -849,12 +895,14 @@
 				8642F91429B8AE82003C4D9F /* MapsViewModel.swift in Sources */,
 				865DA80A29DECD8700B6914C /* PlacesRouter.swift in Sources */,
 				8660C6E729B07C7D000514E9 /* PostPresenter.swift in Sources */,
+				8670C0B72A06623D004B7840 /* PickPlacePresenter.swift in Sources */,
 				862C9FA129AF74E300B71EAC /* TabBarController.swift in Sources */,
 				862C9FBF29AF7A0F00B71EAC /* ProfileView.swift in Sources */,
 				861EBA0529AF85430063988C /* GButton.swift in Sources */,
 				862C9FA029AF74E300B71EAC /* ModuleBuilder.swift in Sources */,
 				864D100129B9E06E00282E70 /* NotificationViewController.swift in Sources */,
 				8642F8FB29B8ABFC003C4D9F /* LoginRouter.swift in Sources */,
+				8636E61E2A0C2177002CA643 /* RegisterViewController.swift in Sources */,
 				8642F90529B8AD32003C4D9F /* CreatePostPresenter.swift in Sources */,
 				861EB9E829AF7E710063988C /* ContainerController.swift in Sources */,
 			);

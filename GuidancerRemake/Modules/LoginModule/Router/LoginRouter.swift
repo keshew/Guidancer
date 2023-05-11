@@ -2,6 +2,7 @@ import UIKit
 
 protocol LoginRouterProtocol: AnyObject {
     func presentProfile() -> UIViewController
+    func presentRegisterModule() -> UIViewController
 }
 
 class LoginRouter: LoginRouterProtocol {
@@ -15,10 +16,15 @@ class LoginRouter: LoginRouterProtocol {
     }
 
     func presentProfile() -> UIViewController {
-//        guard let navigationController else { return UIViewController() }
-//        let router = ProfileRouter(navigationController: navigationController, builder: builder!)
-//        let mainViewController = builder!.buildProfile(router: router)
-//        mainViewController.modalPresentationStyle = .fullScreen
         return ContainerViewController()
+    }
+    
+    func presentRegisterModule() -> UIViewController {
+        guard let navigationController else { return UIViewController() }
+        guard let builder = builder else { return UIViewController() }
+        let router = RegisterRouter(navigationController: navigationController, builder: builder)
+        let mainViewController = builder.buildRegister(router: router)
+        mainViewController.modalPresentationStyle = .fullScreen
+        return mainViewController
     }
 }

@@ -1,21 +1,22 @@
 import UIKit
 
-protocol LoginViewProtocol: AnyObject {
+protocol RegisterViewProtocol: AnyObject {
     var emailTextField: GTextField { get set }
     var passwordTextField: GTextField { get set }
-    func pushProfileController()
-    func showAlert()
+    var nicknameTextField: GTextField { get set }
+    func alertOK()
+    func alertError()
 }
 
-final class LoginViewController: UIViewController, LoginViewProtocol {
+class RegisterViewController: UIViewController {
     
-    var presenter: LoginPresenterProtocol?
-    
+    var presenter: RegisterPresenterProtocol?
+
     var emailTextField = GTextField(imageName: "user",
-                                            placeholder: "Email",
+                                            placeholder: "Enter e-mail address",
                                             font: .medium21)
     
-    private let titleLabel = GLabel(text: "Start exploring the world around!", font: .bold27)
+    private let titleLabel = GLabel(text: "Start exploring the world around!", font: .bold27, numberOfLines: 0)
     
     private let choiceLabel: GLabel = {
         let label = GLabel(text: "or", font: .medium21)
@@ -23,28 +24,48 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
         return label
     }()
     
+    private lazy var buttomItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(dissmissVC))
+        item.tintColor = .black
+        return item
+    }()
+    
     var passwordTextField: GTextField = {
-        let label = GTextField(imageName: "lock", placeholder: "Password", font: .medium21)
+        let label = GTextField(imageName: "lock", placeholder: "Create a password", font: .medium21)
         label.textField.isSecureTextEntry = true
         return label
     }()
     
-    private let signInButton = GRectangleButton(title: "Sign In")
+    var nicknameTextField: GTextField = {
+        let label = GTextField(systemImageName: "at", placeholder: "Choose your nickname", font: .medium21)
+        return label
+    }()
+    
+    
+    private lazy var signInButton: GRectangleButton = {
+        let btn = GRectangleButton(title: "Sign In")
+        btn.addTarget(self, action: #selector(registerProfile), for: .touchUpInside)
+        return  btn
+    }()
     private let appleButton = GRectangleButton(title: "Continue with Apple",
                                                image: UIImage(systemName: "applelogo"))
+    
     private let googleButton = GRectangleButton(title: "Continue with Google",
                                                 image: UIImage(systemName: "applelogo"))
     
     private lazy var dontHaveAccountButton: HaveAccountButton = {
-        let btn = HaveAccountButton(firstPart: "Don't have an account ? ",
-                                           secondPart: "Sign up here")
+        let btn = HaveAccountButton(firstPart: "Already have an account ? ",
+                                    secondPart: "Login here")
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.addTarget(self, action: #selector(registerNewProfile), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(dissmissVC), for: .touchUpInside)
         return btn
     }()
-    
     private lazy var stack = UIStackView(arrangedSubviews: [emailTextField,
-                                                    passwordTextField])
+                                                            passwordTextField,
+                                                            nicknameTextField])
     
     private lazy var stack2 = UIStackView(arrangedSubviews: [signInButton,
                                                     choiceLabel,
@@ -54,33 +75,18 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        configSignInButton()
-
+        setupBarButtonItem()
+        
     }
     
-    @objc func presentLogin() {
-        presenter?.loginInAccount()
-        tabBarController?.hidesBottomBarWhenPushed = true
+    func alertOK() {
+        let alert = UIAlertController(title: "Sucsess", message: "Well done! Please login in your account", preferredStyle: .alert)
+        let alertOK = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(alertOK)
+        present(alert, animated: true)
     }
     
-    @objc func registerNewProfile() {
-        guard let controller = presenter?.presentRegister() else { return }
-        //settings to presenter too
-        let navigtaionController = UINavigationController(rootViewController: controller)
-        navigtaionController.modalPresentationStyle = .currentContext
-        navigtaionController.modalTransitionStyle = .crossDissolve
-        present(navigtaionController, animated: true)
-        tabBarController?.hidesBottomBarWhenPushed = true
-    }
-    
-    func pushProfileController() {
-        guard let controller = presenter?.presentProfile() else { return }
-        let navigtaionController = UINavigationController(rootViewController: controller)
-        navigtaionController.modalPresentationStyle = .currentContext
-        present(navigtaionController, animated: true)
-    }
-    
-    func showAlert() {
+    func alertError() {
         let alert = UIAlertController(title: "Error", message: "Incorrect email or password", preferredStyle: .alert)
         let alertOK = UIAlertAction(title: "Ok", style: .default)
         alert.addAction(alertOK)
@@ -89,7 +95,10 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
 
 }
 
-private extension LoginViewController {
+extension RegisterViewController: RegisterViewProtocol {
+}
+
+private extension RegisterViewController {
     
     func setupView() {
         view.backgroundColor = .white
@@ -97,6 +106,8 @@ private extension LoginViewController {
         view.addSubview(stack)
         view.addSubview(stack2)
         view.addSubview(dontHaveAccountButton)
+        
+        dontHaveAccountButton.translatesAutoresizingMaskIntoConstraints = false
         
         stack.axis = .vertical
         stack.distribution = .fillProportionally
@@ -122,39 +133,27 @@ private extension LoginViewController {
             stack2.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
             margin.trailingAnchor.constraint(equalTo: stack2.trailingAnchor),
             
-
+            
             dontHaveAccountButton.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
             margin.trailingAnchor.constraint(equalTo: dontHaveAccountButton.trailingAnchor),
             margin.bottomAnchor.constraint(equalTo: dontHaveAccountButton.bottomAnchor, constant: 10),
             
-            stack.heightAnchor.constraint(equalToConstant: 120),
+            stack.heightAnchor.constraint(equalToConstant: 180),
             googleButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 19),
             appleButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 19),
-            titleLabel.heightAnchor.constraint(equalToConstant: 72)
+//            titleLabel.heightAnchor.constraint(equalToConstant: 65)
         ])
     }
     
-    func configSignInButton() {
-        signInButton.addTarget(self, action: #selector(presentLogin), for: .touchUpInside)
+    func setupBarButtonItem() {
+        navigationItem.leftBarButtonItem = buttomItem
     }
-}
-
-enum HTTPStatusCodeGroup: Int {
-    case Info = 100
-    case Success = 200
-    case Redirect = 300
-    case Client = 400
-    case Server = 500
-    case Unknown = 999
-
-    init(code: Int) {
-        switch code {
-            case 100...199: self = .Info
-            case 200...299: self = .Success
-            case 300...399: self = .Redirect
-            case 400...499: self = .Client
-            case 500...599: self = .Server
-            default: self = .Unknown
-        }
+    
+    @objc func dissmissVC() {
+        dismiss(animated: true)
+    }
+    
+    @objc func registerProfile() {
+        presenter?.registerAccount()
     }
 }

@@ -17,8 +17,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
             contentView.trailingAnchor.constraint(equalTo: image.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: image.bottomAnchor),
             
-            image.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 13),
-            image.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 13)
+            image.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 18),
+            image.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 18)
         ])
     }
     

@@ -9,7 +9,7 @@ import Foundation
 struct PostElement: Codable {
     let id, title, text: String?
     let viewsCount: Int?
-    let location: [Int]?
+    let location: String?
     let author: Author?
     let imageUrl: String?
     let audioUrl: String?

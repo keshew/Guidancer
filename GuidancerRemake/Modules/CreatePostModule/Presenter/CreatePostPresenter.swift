@@ -110,7 +110,9 @@ class CreatePostPresenter {
     func createPost() {
         //to network manager
         guard let url = URL(string: "http://31.31.203.226:4444/posts") else { return }
-        let parameters: [String: String?] = ["title": view?.guideNameTextField.text,
+        let parameters: [String: String?] = [
+                          "location": view?.adressLabel.text,
+                          "title": view?.guideNameTextField.text,
                           "text": view?.guideDescriptionTextField.text,
                           "imageUrl": "http://31.31.203.226:4444\(self.dictionaryOfImages.first?.value ?? "")",
                           "audioUrl": "http://31.31.203.226:4444\(self.dictionaryOfMP3.first?.value ?? "")"
@@ -135,6 +137,8 @@ class CreatePostPresenter {
             }
         }.resume()
         view?.showAlert()
+        view?.hidePreviousPost()
+       
     }
 }
 

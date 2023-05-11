@@ -65,6 +65,7 @@ private extension ContainerViewController {
 }
 
 extension ContainerViewController: MyProfileViewControllerDelegate {
+    
     func didTapSettings() {
         switch menuStatus {
         case .closed:

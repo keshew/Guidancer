@@ -5,6 +5,7 @@ protocol LoginPresenterProtocol: AnyObject {
     var viewModel: LoginViewModel? { get set }
     func loginInAccount()
     func presentProfile() -> UIViewController
+    func presentRegister() -> UIViewController
 }
 
 class LoginPresenter {
@@ -31,6 +32,11 @@ class LoginPresenter {
     
     func presentProfile() -> UIViewController {
         guard let controller = router?.presentProfile() else { return UIViewController()}
+        return controller
+    }
+    
+    func presentRegister() -> UIViewController {
+        guard let controller = router?.presentRegisterModule() else { return UIViewController()}
         return controller
     }
 }

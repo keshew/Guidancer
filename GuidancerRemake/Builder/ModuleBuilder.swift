@@ -11,6 +11,8 @@ protocol Builder: AnyObject {
     func buildCreatePost(router: CreatePostRouterProtocol) -> UIViewController
     func buildMaps(router: MapsRouterProtocol) -> UIViewController
     func buildNotif(router: NotificationRouterProtocol) -> UIViewController
+    func buildPickPlace(router: PickPlaceRouterProtocol) -> UIViewController
+    func buildRegister(router: RegisterRouterProtocol) -> UIViewController
 }
 class ModuleBuilder: Builder { 
     func buildProfile(router: ProfileRouterProtocol) -> UIViewController {
@@ -81,6 +83,22 @@ class ModuleBuilder: Builder {
         let view = NotificationViewController()
         let network = NetworkManager()
         let presenter = NotificationPresenter(view: view, network: network, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func buildPickPlace(router: PickPlaceRouterProtocol) -> UIViewController {
+        let view = PickPlaceViewController()
+        let network = NetworkManager()
+        let presenter = PickPlacePresenter(view: view, network: network, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func buildRegister(router: RegisterRouterProtocol) -> UIViewController {
+        let view = RegisterViewController()
+        let network = NetworkManager()
+        let presenter = RegisterPresenter(view: view, network: network, router: router)
         view.presenter = presenter
         return view
     }
