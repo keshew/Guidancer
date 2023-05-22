@@ -4,7 +4,7 @@ protocol SearchPresenterProtocol: AnyObject {
     init(view: SearchViewProtocol, network: NetworkManagerProtocol, router: SearchRouterProtocol?)
     var viewModel: SearchViewModelProtocol? { get set }
     func getInfoPost()
-    func pushController(post: PostElement?) -> UIViewController 
+    func pushController(post: PostElement?, isProfile: Bool) -> UIViewController
 }
 
 class SearchPresenter {
@@ -19,8 +19,8 @@ class SearchPresenter {
         self.router = router
     }
     
-    func pushController(post: PostElement?) -> UIViewController {
-        return router?.initialPostController(post: post) ?? UIViewController()
+    func pushController(post: PostElement?, isProfile: Bool) -> UIViewController {
+        return router?.initialPostController(post: post, isProfile: isProfile) ?? UIViewController()
     }
     
     func getInfoPost() {

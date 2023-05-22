@@ -2,15 +2,16 @@ import UIKit
 
 protocol LoginViewProtocol: AnyObject {
     var emailTextField: GTextField { get set }
+    var author: Author? { get set }
     var passwordTextField: GTextField { get set }
-    func pushProfileController()
+    func pushProfileController(author: Author)
     func showAlert()
 }
 
 final class LoginViewController: UIViewController, LoginViewProtocol {
     
     var presenter: LoginPresenterProtocol?
-    
+    var author: Author?
     var emailTextField = GTextField(imageName: "user",
                                             placeholder: "Email",
                                             font: .medium21)
@@ -73,11 +74,10 @@ final class LoginViewController: UIViewController, LoginViewProtocol {
         tabBarController?.hidesBottomBarWhenPushed = true
     }
     
-    func pushProfileController() {
-        guard let controller = presenter?.presentProfile() else { return }
-        let navigtaionController = UINavigationController(rootViewController: controller)
-        navigtaionController.modalPresentationStyle = .currentContext
-        present(navigtaionController, animated: true)
+    func pushProfileController(author: Author) {
+        guard let controller = presenter?.presentProfile(author: author) else { return }
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     func showAlert() {

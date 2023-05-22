@@ -13,6 +13,7 @@ class PreviewPostView: UIView {
     private var profileImage: UIImageView = {
         let image = UIImageView()
         image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 10
         return image
     }()

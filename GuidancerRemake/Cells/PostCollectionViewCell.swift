@@ -31,7 +31,7 @@ class PostCollectionViewCell: GCollectionViewCell {
         self.layer.shadowColor = UIColor.gBlack?.cgColor
     }
     
-    func setupContent(post: GPost, image: String, cityName: String, descriptionOfPlace: String) {
+    func setupContent(post: GPost, image: String, cityName: String, descriptionOfPlace: String, numberOfLikes: Int) {
         informationInPost.setupContent(image: image,
                                        bestPlaceOfCityName: cityName,
                                        descriptionOfPlace: descriptionOfPlace)
@@ -41,6 +41,7 @@ class PostCollectionViewCell: GCollectionViewCell {
 
         var imageView: UIImageView = {
             let image = UIImageView()
+            image.contentMode = .scaleAspectFill
             image.clipsToBounds = true
             image.layer.cornerRadius = 25.0
             image.translatesAutoresizingMaskIntoConstraints = false

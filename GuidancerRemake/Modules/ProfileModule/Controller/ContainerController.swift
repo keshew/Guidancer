@@ -51,7 +51,7 @@ private extension ContainerViewController {
         let navControl = UINavigationController()
         let builder = ModuleBuilder()
         let router = ProfileRouter(navigationController: navControl, builder: builder)
-        let profile = builder.buildProfile(router: router)
+        let profile = builder.buildProfile(router: router, author: nil)
         
         menuController.view.frame.origin.x = UIScreen.main.bounds.width
         addChild(profile)

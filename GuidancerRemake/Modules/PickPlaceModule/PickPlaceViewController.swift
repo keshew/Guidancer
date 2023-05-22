@@ -33,15 +33,6 @@ class PickPlaceViewController: UIViewController {
         return view
     }()
     
-    private lazy var closeButton: UIButton = {
-        let btn = UIButton()
-        btn.addTarget(self, action: #selector(closeController), for: .touchUpInside)
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setImage(UIImage(named: "Arrow4"), for: .normal)
-        btn.tintColor = .black
-        return btn
-    }()
-    
     private lazy var doneButton: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(closeController), for: .touchUpInside)
@@ -49,6 +40,15 @@ class PickPlaceViewController: UIViewController {
         btn.setImage(UIImage(systemName: "hands.sparkles.fill"), for: .normal)
         btn.tintColor = .black
         return btn
+    }()
+    
+    private lazy var toBackBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"),
+                                   style: .plain,
+                                   target: self,
+                                   action: nil)
+        item.tintColor = .black
+        return item
     }()
     
     private let imageOfPin: UIImageView = {
@@ -62,6 +62,7 @@ class PickPlaceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        navigationItem.leftBarButtonItem = toBackBarButtonItem
        // это как притяигивать изначально по адресу понял
 //           let geocoder = CLGeocoder()
 //           geocoder.geocodeAddressString("Александровск, Кирова, 7") { placemarks, error in
@@ -109,7 +110,6 @@ private extension PickPlaceViewController {
         view.addSubview(mapView)
         mapView.addSubview(currentAdressLabel)
         mapView.addSubview(pinView)
-        mapView.addSubview(closeButton)
         mapView.addSubview(doneButton)
         pinView.addSubview(imageOfPin)
         
@@ -118,11 +118,6 @@ private extension PickPlaceViewController {
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             view.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: mapView.bottomAnchor),
-            
-            closeButton.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: 20),
-            closeButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 20),
-            closeButton.heightAnchor.constraint(equalToConstant: 50),
-            closeButton.widthAnchor.constraint(equalToConstant: 50),
             
             currentAdressLabel.topAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.topAnchor, constant: 50),
             currentAdressLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -163,7 +158,6 @@ extension PickPlaceViewController: MKMapViewDelegate {
             guard let placemarks = placemarks else { return }
             
             let placemark = placemarks.first
-//            print("Current latitude is \(placemark?.location?.coordinate.latitude), longitude is \(placemark?.location?.coordinate.longitude)")
             let cityName = placemark?.locality
             let streetName = placemark?.thoroughfare
             let buildNumber = placemark?.subThoroughfare
@@ -176,8 +170,8 @@ extension PickPlaceViewController: MKMapViewDelegate {
                     self.currentAdressLabel.text = "\(streetName!), \(buildNumber!)"
                     self.delegate?.pass(data: "\(streetName!), \(buildNumber!)")
                 } else {
-                    self.currentAdressLabel.text = ""
-                    self.delegate?.pass(data: "")
+                    self.currentAdressLabel.text = "Позиция не выбрана"
+                    self.delegate?.pass(data: "Позиция не выбрана")
                     }
             }
         }

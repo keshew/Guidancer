@@ -35,6 +35,7 @@ final class SearchViewController: UIViewController {
         setupLayout()
         setupCollectionViews()
         setupSearch()
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +64,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let model = presenter?.viewModel?.searchViewModel?[indexPath.row]
         cell.setupContent(post: .mock, image: model?.imageUrl ?? "",
                           cityName: model?.title ?? "",
-                          descriptionOfPlace: model?.text ?? "")
+                          descriptionOfPlace: model?.text ?? "",
+                          numberOfLikes: model?.v ?? 0)
         return cell
         
     }
@@ -71,11 +73,34 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = presenter?.viewModel?.searchViewModel?[indexPath.row]
         //upgrade
-        guard let controller = presenter?.pushController(post: post) else { return }
+        guard let controller = presenter?.pushController(post: post, isProfile: false) else { return }
         let navVC = UINavigationController(rootViewController: controller)
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
     }
+
+//    func collectionView(_ collectionView: UICollectionView, trailingSwipeActionsConfigurationForItemAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+//            // Perform the delete operation for the item at indexPath
+//            // Remove the item from the data source
+//            // Reload the collection view
+//            completionHandler(true)
+//        }
+//        deleteAction.image = UIImage(systemName: "trash")
+//        deleteAction.backgroundColor = .red
+//
+//        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
+//            // Perform the edit operation for the item at indexPath
+//            // Update the item in the data source
+//            // Reload the collection view
+//            completionHandler(true)
+//        }
+//        editAction.image = UIImage(systemName: "pencil")
+//        editAction.backgroundColor = .blue
+//
+//        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+//        return configuration
+//    }
 }
 
 
@@ -115,7 +140,7 @@ private extension SearchViewController {
             collectionView.topAnchor.constraint(equalTo: popularButton.bottomAnchor,constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),
-            view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),
         ])
     }
 }

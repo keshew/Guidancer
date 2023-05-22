@@ -25,8 +25,9 @@ class GuestViewController: ProfileViewController {
         cell.setupContent(post: .mock,
                           image: model?.imageUrl ?? "https://upload.wikimedia.org/wikipedia/commons/8/85/Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg",
                           cityName: (model?.title)!,
-                          descriptionOfPlace: (model?.text)!)
-        viewOfProfile.setupUserInforamtion(image: model?.author?.avatarURL, nickname: model?.author?.nickname ?? "")
+                          descriptionOfPlace: (model?.text)!,
+                          numberOfLikes: model?.v ?? 0)
+//        viewOfProfile.setupUserInforamtion(image: model?.author?.avatarURL, nickname: model?.author?.nickname ?? "")
         return cell
     }
 }

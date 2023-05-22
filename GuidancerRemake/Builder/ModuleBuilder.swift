@@ -2,9 +2,9 @@ import UIKit
 import MediaPlayer
 
 protocol Builder: AnyObject {
-    func buildProfile(router: ProfileRouterProtocol) -> UIViewController
+    func buildProfile(router: ProfileRouterProtocol, author: Author?) -> UIViewController
     func buildGuest(router: GuestRouterProtocol) -> UIViewController
-    func buildAudio(post: PostElement?, router: AudioRouterProtocol) -> UIViewController
+    func buildAudio(post: PostElement?, router: AudioRouterProtocol, isProfile: Bool) -> UIViewController
     func buildPost(post: PostElement?, router: PostRouterProtocol, player: AVPlayer) -> UIViewController
     func buildSearch(router: SearchRouterProtocol) -> UIViewController
     func buildLogin(router: LoginRouterProtocol) -> UIViewController
@@ -13,12 +13,13 @@ protocol Builder: AnyObject {
     func buildNotif(router: NotificationRouterProtocol) -> UIViewController
     func buildPickPlace(router: PickPlaceRouterProtocol) -> UIViewController
     func buildRegister(router: RegisterRouterProtocol) -> UIViewController
+    func buildFollowers(router: FollowersRouterProtocol) -> UIViewController
 }
 class ModuleBuilder: Builder { 
-    func buildProfile(router: ProfileRouterProtocol) -> UIViewController {
+    func buildProfile(router: ProfileRouterProtocol, author: Author?) -> UIViewController {
         let view = ProfileViewController()
         let network = NetworkManager()
-        let presenter = ProfilePresenter(view: view, network: network, router: router)
+        let presenter = ProfilePresenter(view: view, network: network, router: router, author: author)
         view.presenter = presenter
         return view
     }
@@ -31,10 +32,10 @@ class ModuleBuilder: Builder {
         return view
     }
     
-    func buildAudio(post: PostElement?, router: AudioRouterProtocol) -> UIViewController {
+    func buildAudio(post: PostElement?, router: AudioRouterProtocol, isProfile: Bool) -> UIViewController {
         let view = AudioGuideViewController()
         let network = NetworkManager()
-        let presenter = AudioPresenter(view: view, post: post, network: network, router: router)
+        let presenter = AudioPresenter(view: view, post: post, network: network, router: router, isProfile: isProfile)
         view.presenter = presenter
         return view
     }
@@ -99,6 +100,14 @@ class ModuleBuilder: Builder {
         let view = RegisterViewController()
         let network = NetworkManager()
         let presenter = RegisterPresenter(view: view, network: network, router: router)
+        view.presenter = presenter
+        return view
+    }
+    
+    func buildFollowers(router: FollowersRouterProtocol) -> UIViewController {
+        let view = FollowersViewController()
+        let network = NetworkManager()
+        let presenter = FollowersPresenter(view: view, network: network, router: router)
         view.presenter = presenter
         return view
     }

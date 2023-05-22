@@ -16,9 +16,9 @@ class SearchScreenCollectionViewCell: PostCollectionViewCell {
         contentStackView.addArrangedSubview(informationInPost)
     }
 
-    override func setupContent(post: GPost, image: String, cityName: String, descriptionOfPlace: String) {
-        super.setupContent(post: post, image: image, cityName: cityName, descriptionOfPlace: descriptionOfPlace)
-        informationInPost.setupContent(likes: post.likes, comments: post.comments)
+    override func setupContent(post: GPost, image: String, cityName: String, descriptionOfPlace: String, numberOfLikes: Int) {
+        super.setupContent(post: post, image: image, cityName: cityName, descriptionOfPlace: descriptionOfPlace, numberOfLikes: numberOfLikes)
+        informationInPost.setupContent(likes: numberOfLikes, comments: post.comments)
     }
 
     private final class ChangableInfoOfPostSV: UIView {
@@ -57,9 +57,7 @@ class SearchScreenCollectionViewCell: PostCollectionViewCell {
 
         func setupContent(likes: Int,
                           comments: Int) {
-            likesNumber.text = String("\(likes)K")
+            likesNumber.text = String("\(likes)")
         }
     }
-
 }
-

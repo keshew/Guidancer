@@ -3,6 +3,7 @@ import UIKit
 protocol AudioViewProtocol: AnyObject {
     var openPost: PostView { get set }
     var backgroundImage: UIImageView { get set }
+    var deleteButtonItem: UIBarButtonItem { get set }
 }
 
 final class AudioGuideViewController: UIViewController {
@@ -16,6 +17,7 @@ final class AudioGuideViewController: UIViewController {
     
     var backgroundImage: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -29,7 +31,7 @@ final class AudioGuideViewController: UIViewController {
         return view
     }()
     
-    private lazy var barButtonItem: UIBarButtonItem = {
+    private lazy var toBackBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"),
                                    style: .plain,
                                    target: self,
@@ -38,15 +40,39 @@ final class AudioGuideViewController: UIViewController {
         return item
     }()
     
+    lazy var deleteButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(systemItem: .compose, menu: makeMenu())
+        item.tintColor = .gGreen
+        return item
+    }()
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.getInfoPost()
         configureView()
-        openPost.playButton.addTarget(self, action: #selector(pushPostController), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = barButtonItem
+        addTarget()
     }
+
+    func deletePost() {
+        presenter?.deletePost()
+        dismiss(animated: true)
+    }
+    
+    func editPost() {
+        presenter?.editPost()
+        dismiss(animated: true)
+    }
+    
     @objc func dismissVC() {
         dismiss(animated: true)
+    }
+    
+    @objc func navigationTapped() {
+        let profile = UINavigationController(rootViewController: AudioGuideMapViewController())
+        profile.modalPresentationStyle = .fullScreen
+        present(profile, animated: true, completion: nil)
     }
     
     @objc func pushPostController() {
@@ -65,7 +91,26 @@ final class AudioGuideViewController: UIViewController {
 
 private extension AudioGuideViewController {
     
+    func makeMenu() -> UIMenu {
+        let deleteItem = UIAction(title: "Удалить", image: UIImage (systemName: "delete.left.fill")) { _ in
+            self.deletePost()
+        }
+        
+        let remakeItem = UIAction(title: "Редактировать", image: UIImage (systemName: "rectangle.and.pencil.and.ellipsis")) { _ in
+            self.editPost()
+        }
+        return UIMenu(title: "", children: [deleteItem,remakeItem])
+    }
+    
+    func addTarget() {
+        openPost.playButton.addTarget(self, action: #selector(pushPostController), for: .touchUpInside)
+//        openPost.navigationButton.addTarget(self, action: #selector(deletePost), for: .touchUpInside)
+    }
+    
     func configureView() {
+        navigationItem.leftBarButtonItem = toBackBarButtonItem
+        navigationItem.rightBarButtonItem = deleteButtonItem
+        
         openPost.layer.zPosition = 1
         view.addSubview(openPost)
         view.addSubview(backgroundImage)

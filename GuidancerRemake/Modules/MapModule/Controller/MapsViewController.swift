@@ -12,10 +12,11 @@ class MapsViewController: UIViewController, MapsViewProtocol {
     
     var presenter: MapsPresenterProtocol?
     let manager = CLLocationManager()
-    
-    var arrayNumbers: [Int] = []
+//    var distansesss: [String:MKAnnotation] = [:]
+//    var arrayNumbers: [Int] = []
     var arrayOfLocations: [String] = []
-    var sahar: [Int: CLLocationCoordinate2D] = [:]
+//    var sahar: [Int: CLLocationCoordinate2D] = [:]
+    var dicti: [Int: MKPointAnnotation] = [:]
     
     private lazy var directionButton: UIButton = {
         let btn = UIButton()
@@ -32,52 +33,58 @@ class MapsViewController: UIViewController, MapsViewProtocol {
         return view
     }()
     
-    private lazy var buttomItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
-                                   style: .plain,
-                                   target: self,
-                                   action: #selector(dissmissVC))
-        item.tintColor = .black
-        return item
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "ITS MAP CONTROLLER"
         setupView()
-        setupBarButtonItem()
         seeLocation()
         presenter?.getAllLoaction()
     }
     
     func sucsess(array: Post) {
+        
+        
         for i in array {
             arrayOfLocations.append(i.location ?? "")
-            let geocoder = CLGeocoder()
-          
-            geocoder.geocodeAddressString(i.location!) { placemarks, error in
-                if let error = error {
-                    print(error)
-                    return
+            
+                let geocoder = CLGeocoder()
+                geocoder.geocodeAddressString(i.location!) { placemarks, error in
+//                    if let error = error {
+//                        print(error)
+//                        return
+//                    }
+                    guard let placemarks = placemarks else { return }
+//
+                    let placemark = placemarks.first
+
+                    let annotation = MKPointAnnotation()
+                    guard let placemarkLocation = placemark?.location else { return }
+
+                    annotation.coordinate = placemarkLocation.coordinate
+                    //cordiante of annotaitons
+                    let a = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+                    //user coorinate
+                    let userLocation2 = CLLocation(latitude: self.mapView.userLocation.coordinate.latitude, longitude: self.mapView.userLocation.coordinate.longitude)
+                    //distance beetwen them
+                    let distance = Int(userLocation2.distance(from: a))
+                    
+//                    print("DISTANCE FROM \(String(describing: annotation)) TO ME IS", distance)
+                   
+                    
+                    self.dicti[distance] = annotation
+                    
+                    let apple: MKPointAnnotation =  self.dicti[self.dicti.keys.min()!]!
+//                    print(apple)
+                    self.mapView.showAnnotations([annotation], animated: true)
+                    let a2 = MKCoordinateRegion(center: apple.coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+                    self.mapView.setRegion(a2, animated: true)
+                    self.mapView.selectAnnotation(annotation, animated: true)
                 }
-                guard let placemarks = placemarks else { return }
-
-                let placemark = placemarks.first
-
-                let annotation = MKPointAnnotation()
-                annotation.title = "place.name"
-                annotation.subtitle = "place.type"
-
-                guard let placemarkLocation = placemark?.location else { return }
-
-                annotation.coordinate = placemarkLocation.coordinate
-
-                self.mapView.showAnnotations([annotation], animated: true)
-                self.mapView.selectAnnotation(annotation, animated: true)
-            }
         }
-      
+    }
+    
+    func deq() {
+        
     }
     
     func faillure(error: Error) {
@@ -114,10 +121,6 @@ private extension MapsViewController {
             directionButton.heightAnchor.constraint(equalToConstant: 50),
             directionButton.widthAnchor.constraint(equalToConstant: 50)
         ])
-    }
-    
-    func setupBarButtonItem() {
-        navigationItem.leftBarButtonItem = buttomItem
     }
     
     @objc func dissmissVC() {
@@ -169,7 +172,7 @@ extension MapsViewController: CLLocationManagerDelegate {
 //            let annotationLocation = CLLocation(latitude: i.coordinate.latitude, longitude: i.coordinate.longitude)
 //            let userLocation2 = CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
 //            let distance = Int(userLocation2.distance(from: annotationLocation))
-////            print("DISTANCE FROM \(i) TO ME IS", distance)
+//            print("DISTANCE FROM \(i) TO ME IS", distance)
 //            arrayNumbers.append(distance)
 //            let coordinate = CLLocationCoordinate2D(latitude: i.coordinate.latitude, longitude: i.coordinate.longitude)
 //            sahar[distance] = coordinate

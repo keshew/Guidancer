@@ -44,13 +44,18 @@ class ProfileView: UIView {
     
     private var nickname = GLabel(font: .semiBold18)
     
-    private let likeButton: UIButton = {
+    lazy var followersButton: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(systemName: "person"), for: .normal)
+        btn.addTarget(self, action: #selector(priv), for: .touchUpInside)
         btn.tintColor = .black
         return btn
     }()
+    
+    @objc func priv() {
+        
+    }
 
     private let commentButton: UIButton = {
         let btn = UIButton()
@@ -72,7 +77,7 @@ class ProfileView: UIView {
         return label
     }()
     
-    private lazy var likesSV = UIStackView(arrangedSubviews: [likeButton, followers])
+    private lazy var likesSV = UIStackView(arrangedSubviews: [followersButton, followers])
     private lazy var subs = UIStackView(arrangedSubviews: [commentButton, likes])
 
     private lazy var main: UIStackView = {
@@ -93,10 +98,12 @@ class ProfileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUserInforamtion(image: String?, nickname: String) {
+    func setupUserInforamtion(image: String?, nickname: String, numberOfLikes: Int?, numberOfFollowers: Int?) {
         guard let image = image else { return }
         imageOfProfile.kf.setImage(with: URL(string: image))
         self.nickname.text = nickname
+        self.likes.text = "\(numberOfLikes ?? 0)"
+        self.followers.text = "\(numberOfFollowers ?? 0)"
     }
 }
 

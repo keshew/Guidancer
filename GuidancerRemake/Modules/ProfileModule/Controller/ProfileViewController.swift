@@ -3,6 +3,8 @@ import UIKit
 protocol ProfileViewProtocol: AnyObject {
     func sucsess()
     func faillure(error: Error)
+    func setupValue(author: Author?)
+    var viewOfProfile: ProfileView { get set }
 }
 
 protocol MyProfileViewControllerDelegate: AnyObject {
@@ -11,7 +13,7 @@ protocol MyProfileViewControllerDelegate: AnyObject {
 
 class ProfileViewController: UIViewController, ProfileViewProtocol  {
     
-    var presenter: ProfilePresenterProtocol?
+    var presenter: ProfilePresenterProtocol!
     
     fileprivate enum UIConstants {
         static let collectionViewLayoutOffset: CGFloat = 20
@@ -25,8 +27,9 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
         static let followButtonTopInset: CGFloat = 205
     }
     
-    let viewOfProfile: ProfileView = {
+    lazy var viewOfProfile: ProfileView = {
         let view = ProfileView()
+        view.followersButton.addTarget(self, action: #selector(followersButtonTapped), for: .touchUpInside)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -74,6 +77,7 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
         configureFollowButton()
         configureView()
         configureCollectionView()
+        print(presenter.author)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +87,17 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
     
     func sucsess() {
         self.collectionView.reloadData()
+    }
+    
+    func setupValue(author: Author?) {
+        self.viewOfProfile.setupUserInforamtion(image: author?.avatarURL,
+                                                nickname: author?.nickname ?? "No name",
+                                                numberOfLikes: author?.v,
+                                                numberOfFollowers: author?.v)
+    }
+    
+    func addAction() {
+        viewOfProfile.followersButton.addTarget(self, action: #selector(followersButtonTapped), for: .touchUpInside)
     }
     
     func faillure(error: Error) {
@@ -104,6 +119,12 @@ class ProfileViewController: UIViewController, ProfileViewProtocol  {
             self.followButton.transform = CGAffineTransform(scaleX: 1, y: 1)
         }
     }
+    
+    @objc func followersButtonTapped() {
+        let navigationController = UINavigationController(rootViewController: presenter?.presentFollowers() ?? UIViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
+    }
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -115,17 +136,17 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         let model = presenter?.viewModel?.postInforamtion?[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchScreenCollectionViewCell.identifier, for: indexPath) as! SearchScreenCollectionViewCell
         cell.setupContent(post: .mock,
-                          image: model?.imageUrl ?? "https://upload.wikimedia.org/wikipedia/commons/8/85/Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg",
-                          cityName: (model?.title)!,
-                          descriptionOfPlace: (model?.text)!)
-        viewOfProfile.setupUserInforamtion(image: model?.author?.avatarURL, nickname: model?.author?.nickname ?? "")
+                          image: model?.imageUrl ?? "",
+                          cityName: model?.title ?? "",
+                          descriptionOfPlace: model?.text ?? "",
+                          numberOfLikes: model?.v ?? 0)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = presenter?.viewModel?.postInforamtion?[indexPath.row]
         //upgrade
-        guard let controller = presenter?.pushController(post: post) else { return }
+        guard let controller = presenter?.pushController(post: post, isProfile: true) else { return }
         let navVC = UINavigationController(rootViewController: controller)
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)

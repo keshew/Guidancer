@@ -1,6 +1,18 @@
 import UIKit
 
 final class TabBarViewController: UITabBarController {
+    
+    var author: Author?
+    
+    required init(author: Author?) {
+        self.author = author
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         generateTabBar()
@@ -13,8 +25,8 @@ final class TabBarViewController: UITabBarController {
         let createPostRouter = CreatePostRouter(navigationController: navControl, builder: builder)
         let searchRouter = SearchRouter(navigationController: navControl, builder: builder)
         let mapsRouter = MapsRouter(navigationController: navControl, builder: builder)
-        let loginRouter = LoginRouter(navigationController: navControl, builder: builder)
         let notifRouter = NotificationRouter(navigationController: navControl, builder: builder)
+        let profileRouter = ProfileRouter(navigationController: navControl, builder: builder)
         
         setViewControllers([
             generateViewControllers(
@@ -35,7 +47,7 @@ final class TabBarViewController: UITabBarController {
                 image: UIImage(named: "FavoriteModule")
             ),
             generateViewControllers(
-                viewController: UINavigationController(rootViewController: builder.buildLogin(router: loginRouter)),
+                viewController: UINavigationController(rootViewController: builder.buildProfile(router: profileRouter, author: author)),
                 image: UIImage(named: "ProfileModule")
             )],animated: true)
     }

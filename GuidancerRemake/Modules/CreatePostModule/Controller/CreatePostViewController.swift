@@ -156,8 +156,8 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol, 
     func hidePreviousPost() {
         arrayOfPickedImages = []
         collectionView.reloadData()
-//        collectionView.removeFromSuperview()
-        adressLabel.text = ""
+
+        adressLabel.isHidden = true
         guideNameTextField.text = ""
         guideDescriptionTextField.text = ""
     }
@@ -176,8 +176,9 @@ final class CreatePostViewController: UIViewController, CreatePostViewProtocol, 
         let router = PickPlaceRouter(navigationController: navigationController, builder: builder)
         let mainViewController = builder.buildPickPlace(router: router) as! PickPlaceViewController
         mainViewController.delegate = self
-        mainViewController.modalPresentationStyle = .fullScreen
-        present(mainViewController, animated: true)
+        let mainNavigationController = UINavigationController(rootViewController: mainViewController)
+        mainNavigationController.modalPresentationStyle = .fullScreen
+        present(mainNavigationController, animated: true)
     }
     
     @objc func createPost() {

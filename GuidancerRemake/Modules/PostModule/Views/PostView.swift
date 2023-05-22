@@ -22,7 +22,7 @@ class PostView: UIView {
     private var nicknameLabel = GLabel(font: .semiBold18,
                                   numberOfLines: 1)
     
-    private var followersLabel: GLabel = {
+    var followersLabel: GLabel = {
         let label = GLabel(text: "2.2K", font: .regular14)
         label.textAlignment = .center
         return label
@@ -59,11 +59,10 @@ class PostView: UIView {
         return btn
     }()
 
-    private lazy var navigationButton: UIButton = {
+    lazy var navigationButton: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(named: "navigation"), for: .normal)
-        btn.addTarget(self, action: #selector(navigationTapped), for: .touchUpInside)
         btn.tintColor = .black
         return btn
     }()
@@ -116,17 +115,18 @@ class PostView: UIView {
     }
     
     //to presenter
-    @objc func navigationTapped() {
-        let profile = UINavigationController(rootViewController: AudioGuideMapViewController())
-        profile.modalPresentationStyle = .fullScreen
-        self.window?.rootViewController?.present(profile, animated: true, completion: nil)
-    }
+//    @objc func navigationTapped() {
+//        let profile = UINavigationController(rootViewController: AudioGuideMapViewController())
+//        profile.modalPresentationStyle = .fullScreen
+//        self.window?.rootViewController?.present(profile, animated: true, completion: nil)
+//    }
     
-    func setupView(image: String?, nickname: String, firstTitle: String, text: String) {
+    func setupView(image: String?, nickname: String, firstTitle: String, text: String, numberOfLikes: Int) {
         profileImage.kf.setImage(with: URL(string: image ?? ""))
         self.nicknameLabel.text = nickname
         titleOfTextLabel.text = firstTitle
         mainTextLabel.text = text
+        followersLabel.text = "\(numberOfLikes)"
     }
 }
 

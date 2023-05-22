@@ -1,7 +1,7 @@
 import UIKit
 
 protocol LoginRouterProtocol: AnyObject {
-    func presentProfile() -> UIViewController
+//    func presentProfile() -> UIViewController
     func presentRegisterModule() -> UIViewController
 }
 
@@ -15,9 +15,9 @@ class LoginRouter: LoginRouterProtocol {
         self.builder = builder
     }
 
-    func presentProfile() -> UIViewController {
-        return ContainerViewController()
-    }
+//    func presentProfile() -> UIViewController {
+//        return TabBarViewController()
+//    }
     
     func presentRegisterModule() -> UIViewController {
         guard let navigationController else { return UIViewController() }

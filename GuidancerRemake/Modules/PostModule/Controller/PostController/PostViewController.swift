@@ -26,6 +26,7 @@ final class PostViewController: UIViewController {
         configureView()
         presenter?.getInfoPost()
         addTarget()
+        print("MAYBE SECOND")
     }
     
     @objc func playMusic() {

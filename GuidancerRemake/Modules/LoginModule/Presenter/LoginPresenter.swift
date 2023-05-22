@@ -4,7 +4,7 @@ protocol LoginPresenterProtocol: AnyObject {
     init(view: LoginViewProtocol, network: NetworkManagerProtocol, router: LoginRouterProtocol?)
     var viewModel: LoginViewModel? { get set }
     func loginInAccount()
-    func presentProfile() -> UIViewController
+    func presentProfile(author: Author) -> UIViewController
     func presentRegister() -> UIViewController
 }
 
@@ -13,7 +13,7 @@ class LoginPresenter {
     let network: NetworkManagerProtocol?
     var viewModel: LoginViewModel?
     var router: LoginRouterProtocol?
-
+    
     required init(view: LoginViewProtocol, network: NetworkManagerProtocol, router: LoginRouterProtocol?) {
         self.view = view
         self.network = network
@@ -23,16 +23,24 @@ class LoginPresenter {
     func loginInAccount() {
         network?.loginInAccount(email: view?.emailTextField.textField.text ?? "",
                                 password: view?.passwordTextField.textField.text ?? "",
-                                sucsessCompletion: {
-            self.view?.pushProfileController()
-        },                      faillureCompletion: {
+                                sucsessCompletion: { [weak self] author in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                switch author {
+                case .success(let authors):
+                    self.view?.pushProfileController(author: authors)
+                case .failure(let error):
+                    print("ERROR IS", error)
+                }
+            }
+        },
+                                faillureCompletion: {
             self.view?.showAlert()
         })
     }
     
-    func presentProfile() -> UIViewController {
-        guard let controller = router?.presentProfile() else { return UIViewController()}
-        return controller
+    func presentProfile(author: Author) -> UIViewController {
+        return TabBarViewController(author: author)
     }
     
     func presentRegister() -> UIViewController {
